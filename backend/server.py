@@ -4,6 +4,7 @@ import base64
 import tempfile
 import logging
 import csv
+import statistics
 from datetime import datetime, timezone
 from typing import Optional
 
@@ -319,6 +320,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.models.cnn import CNNModel
 
 def compute_risk_level(verdict: str, confidence: float) -> str:
+    if verdict == "INCONCLUSIVE":
+        return "MEDIUM"
     if verdict == "FAKE":
         if confidence >= 0.9:
             return "CRITICAL"
@@ -394,60 +397,64 @@ def extract_audio_feature_vector(audio_path: str) -> np.ndarray | None:
     return np.array([float(features[key]) for key in ordered_keys], dtype=np.float32)
 
 
-def extract_video_feature_vector(video_path: str) -> tuple[np.ndarray | None, list[np.ndarray]]:
+def extract_video_feature_vector(video_path: str) -> tuple[np.ndarray | None, list[np.ndarray], list[int]]:
     try:
         import cv2
     except Exception as exc:
         logger.error("OpenCV unavailable during video feature extraction: %s", exc)
-        return None, []
+        return None, [], []
 
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():
         return None, []
 
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-    sample_count = min(8, total_frames) if total_frames > 0 else 0
+    sample_count = min(16, total_frames) if total_frames > 0 else 0
     if sample_count == 0:
         cap.release()
-        return None, []
+        return None, [], []
 
     indices = sorted({int(i * max(total_frames - 1, 0) / max(sample_count - 1, 1)) for i in range(sample_count)})
-    target_set = set(indices)
-    current_index = 0
     frame_vectors = []
     brightness = []
     sharpness = []
     frame_indices = []
+    motion = []
+    previous_gray = None
 
-    while True:
+    for current_index in indices:
+        cap.set(cv2.CAP_PROP_POS_FRAMES, current_index)
         ret, frame = cap.read()
         if not ret:
-            break
-        if current_index in target_set:
-            rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            frame_vec = extract_image_feature_vector(rgb_frame)
-            frame_vectors.append(frame_vec)
-            frame_indices.append(current_index)
-            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            brightness.append(float(np.mean(gray)))
-            sharpness.append(float(cv2.Laplacian(gray, cv2.CV_64F).var()))
-        current_index += 1
+            continue
+        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame_vec = extract_image_feature_vector(rgb_frame)
+        frame_vectors.append(frame_vec)
+        frame_indices.append(current_index)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        brightness.append(float(np.mean(gray)))
+        sharpness.append(float(cv2.Laplacian(gray, cv2.CV_64F).var()))
+        if previous_gray is not None:
+            motion.append(float(np.mean(np.abs(gray.astype(np.float32) - previous_gray.astype(np.float32)))))
+        previous_gray = gray
 
     cap.release()
     if not frame_vectors:
-        return None, []
+        return None, [], []
 
     aggregated = np.mean(np.stack(frame_vectors), axis=0)
     temporal = np.array(
         [
             float(np.std(brightness)) if brightness else 0.0,
             float(np.std(sharpness)) if sharpness else 0.0,
+            float(np.mean(motion)) if motion else 0.0,
+            float(np.std(motion)) if motion else 0.0,
             float(len(frame_vectors)),
         ],
         dtype=np.float32,
     )
     # Return both the video-level vector and the list of frame vectors
-    return np.concatenate([aggregated, temporal]).astype(np.float32), frame_vectors
+    return np.concatenate([aggregated, temporal]).astype(np.float32), frame_vectors, frame_indices
 
 
 def normalize_reference_vector(extracted):
@@ -658,7 +665,7 @@ def analyze_audio_local(file_path: str) -> dict:
     }
 
 def analyze_video_local(file_path: str) -> dict:
-    feature_vector, frame_vectors = extract_video_feature_vector(file_path)
+    feature_vector, frame_vectors, frame_indices = extract_video_feature_vector(file_path)
     if feature_vector is None or not frame_vectors:
         return {
             "verdict": "INCONCLUSIVE",
@@ -673,6 +680,7 @@ def analyze_video_local(file_path: str) -> dict:
 
     model = build_reference_model("video", extract_video_feature_vector)
     frame_model = project_reference_model(model, int(frame_vectors[0].shape[0]))
+    frame_images = extract_video_frames_b64(file_path, max_frames=None, indices=frame_indices)
     # Per-frame analysis
     frame_results = []
     for idx, frame_vec in enumerate(frame_vectors):
@@ -680,32 +688,79 @@ def analyze_video_local(file_path: str) -> dict:
         frame_verdict = frame_class["verdict"]
         fake_prob = frame_class.get("fake_probability", 1.0 if frame_verdict == "FAKE" else 0.0)
         confidence = frame_class["confidence"]
+        top_neighbor = frame_class.get("nearest_neighbors", [None])[:1]
+        neighbor_text = "similarity pattern"
+        if top_neighbor and top_neighbor[0]:
+            neighbor_distance, neighbor_label, neighbor_name = top_neighbor[0]
+            neighbor_text = f"closest match {neighbor_name} ({neighbor_label}, distance {neighbor_distance:.2f})"
         frame_results.append({
             "frame": idx + 1,
+            "source_frame": int(frame_indices[idx]) + 1 if idx < len(frame_indices) else idx + 1,
             "label": frame_verdict,
             "fake_prob": round(fake_prob * 100, 2),
             "confidence": round(confidence * 100, 2),
-    })
-    # Aggregate for overall verdict
-    avg_fake_prob = sum(f["fake_prob"] for f in frame_results) / len(frame_results)
-    overall_verdict = "FAKE" if avg_fake_prob >= 50 else "REAL"
-    overall_confidence = sum(f["confidence"] for f in frame_results) / len(frame_results)
-    brightness_std = float(feature_vector[-3])
-    sharpness_std = float(feature_vector[-2])
+            "thumbnail": frame_images[idx] if idx < len(frame_images) else None,
+            "reason": (
+                f"Marked {frame_verdict} because this frame is closest to the {frame_verdict.lower()} reference cluster; "
+                f"{neighbor_text}."
+            ),
+        })
+
+    frame_fake_probs = [float(frame["fake_prob"]) for frame in frame_results]
+    frame_confidences = [max(float(frame["confidence"]), 1.0) for frame in frame_results]
+    weighted_fake_prob = sum(p * w for p, w in zip(frame_fake_probs, frame_confidences)) / (sum(frame_confidences) or 1.0)
+    median_fake_prob = float(statistics.median(frame_fake_probs))
+    fake_vote_ratio = sum(1 for prob in frame_fake_probs if prob >= 50.0) / len(frame_fake_probs)
+
+    real_distance = float(np.linalg.norm(feature_vector - model["real_centroid"]) / model["real_spread"])
+    fake_distance = float(np.linalg.norm(feature_vector - model["fake_centroid"]) / model["fake_spread"])
+    distance_fake_score = fake_distance / (real_distance + fake_distance + 1e-6)
+
+    combined_fake_score = (
+        (weighted_fake_prob / 100.0) * 0.42
+        + (median_fake_prob / 100.0) * 0.18
+        + fake_vote_ratio * 0.15
+        + distance_fake_score * 0.25
+    )
+
+    # Be conservative: borderline clips are marked inconclusive instead of forcing a fake verdict.
+    if combined_fake_score >= 0.58 and fake_vote_ratio >= 0.5:
+        overall_verdict = "FAKE"
+        overall_confidence = combined_fake_score
+    elif combined_fake_score <= 0.42 and fake_vote_ratio <= 0.6:
+        overall_verdict = "REAL"
+        overall_confidence = 1.0 - combined_fake_score
+    else:
+        overall_verdict = "INCONCLUSIVE"
+        overall_confidence = 0.5
+
+    brightness_std = float(feature_vector[-5])
+    sharpness_std = float(feature_vector[-4])
+    motion_mean = float(feature_vector[-3])
+    motion_std = float(feature_vector[-2])
     sampled_frames = int(feature_vector[-1])
     artifacts_detected = []
     if brightness_std > 20:
         artifacts_detected.append("brightness flicker")
     if sharpness_std > 120:
         artifacts_detected.append("sharpness instability")
+    if motion_std > 18:
+        artifacts_detected.append("temporal motion inconsistency")
     if overall_verdict == "FAKE":
         artifacts_detected.append("reference-matched temporal anomaly")
 
-    summary = f"Video Verdict: {overall_verdict} (avg fake prob: {avg_fake_prob:.2f}%, threshold: 50.00%)"
+    if overall_verdict == "INCONCLUSIVE":
+        summary = (
+            f"Video analysis is inconclusive because the frame votes and temporal similarity are too close "
+            f"to separate confidently."
+        )
+    else:
+        summary = f"Video Verdict: {overall_verdict} (combined fake score: {combined_fake_score * 100:.2f}%)"
     return {
         "verdict": overall_verdict,
-        "confidence": avg_fake_prob / 100.0,
-        "risk_level": compute_risk_level(overall_verdict, avg_fake_prob / 100.0),
+        "confidence": overall_confidence,
+        "fake_probability": combined_fake_score,
+        "risk_level": compute_risk_level(overall_verdict, overall_confidence),
         "summary": summary,
         "details": [
             {
@@ -715,7 +770,7 @@ def analyze_video_local(file_path: str) -> dict:
             },
             {
                 "category": "Temporal Stability",
-                "finding": f"Brightness variation {brightness_std:.2f}, sharpness variation {sharpness_std:.2f}, sampled frames {sampled_frames}.",
+                "finding": f"Brightness variation {brightness_std:.2f}, sharpness variation {sharpness_std:.2f}, motion variation {motion_std:.2f}, sampled frames {sampled_frames}.",
                 "severity": "medium" if artifacts_detected else "low",
             },
             {
@@ -725,7 +780,7 @@ def analyze_video_local(file_path: str) -> dict:
             },
         ],
         "artifacts_detected": artifacts_detected,
-        "recommendation": "Use short clips with visible faces and stable framing so the video can be matched more reliably against the local reference set.",
+        "recommendation": "Use short clips with visible faces, stable framing, and low compression for stronger video matching against the local reference set.",
         "frame_analysis": frame_results,
     }
 
@@ -972,7 +1027,7 @@ def extract_audio_features(audio_path: str) -> dict:
                     }
 
 
-def extract_video_frames_b64(video_path: str, max_frames: int = 4) -> list:
+def extract_video_frames_b64(video_path: str, max_frames: int | None = 4, indices: list[int] | None = None) -> list:
     """Extract frames from video and return as base64 strings."""
     try:
         import cv2
@@ -986,19 +1041,20 @@ def extract_video_frames_b64(video_path: str, max_frames: int = 4) -> list:
             cap.release()
             return []
 
-        sample_count = min(max_frames, total_frames)
-        indices = sorted({int(i * max(total_frames - 1, 0) / max(sample_count - 1, 1)) for i in range(sample_count)})
+        if indices is not None:
+            sample_indices = sorted({int(index) for index in indices if 0 <= int(index) < total_frames})
+        else:
+            sample_count = total_frames if max_frames is None else min(max_frames, total_frames)
+            sample_indices = sorted({int(i * max(total_frames - 1, 0) / max(sample_count - 1, 1)) for i in range(sample_count)})
         frames_b64 = []
-        frame_count = 0
-        while True:
+        for frame_count in sample_indices:
+            cap.set(cv2.CAP_PROP_POS_FRAMES, frame_count)
             ret, frame = cap.read()
             if not ret:
-                break
-            if frame_count in indices:
-                _, buffer = cv2.imencode(".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 80])
-                b64 = base64.b64encode(buffer).decode("utf-8")
-                frames_b64.append(b64)
-            frame_count += 1
+                continue
+            _, buffer = cv2.imencode(".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 80])
+            b64 = base64.b64encode(buffer).decode("utf-8")
+            frames_b64.append(b64)
         cap.release()
         return frames_b64
     except Exception as e:
@@ -1123,6 +1179,7 @@ async def analyze_video(file: UploadFile = File(...)):
             "details": result.get("details", []),
             "artifacts_detected": result.get("artifacts_detected", []),
             "recommendation": result.get("recommendation", ""),
+            "frame_analysis": result.get("frame_analysis", []),
             "created_at": datetime.now(timezone.utc).isoformat(),
         }
         save_scan(scan_record)
