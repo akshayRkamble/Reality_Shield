@@ -4,7 +4,6 @@ const mediaOptions = [
   {
     id: "image",
     title: "Image",
-    label: "Deepfake Image Detection",
     accept: "image/*",
     endpoint: "/api/analyze/image",
     helper: "Upload a portrait, profile photo, or any JPEG, PNG, or WEBP image.",
@@ -12,137 +11,91 @@ const mediaOptions = [
   {
     id: "video",
     title: "Video",
-    label: "Deepfake Video Detection",
     accept: "video/*",
     endpoint: "/api/analyze/video",
-    helper: "Check a video clip for face swaps, temporal artifacts, and manipulation.",
+    helper: "Check a clip for face swaps, motion anomalies, and visual artifacts.",
   },
   {
     id: "audio",
     title: "Voice",
-    label: "Deepfake Voice Detection",
     accept: "audio/*",
     endpoint: "/api/analyze/audio",
     helper: "Inspect a voice note or recording for synthetic speech signals.",
   },
 ];
 
-const useCases = [
+const heroGallery = [
   {
-    title: "Social Media Profile",
-    score: "89%",
-    copy: "Catch suspicious profile images before they spread across feeds.",
+    src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80",
+    label: "Fake",
+    title: "Face swap detection",
   },
   {
-    title: "Parade Images",
-    score: "45%",
-    copy: "Review event photos and spot edits that do not feel authentic.",
+    src: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80",
+    label: "True",
+    title: "Reference comparison",
+  },
+];
+
+const showcaseCards = [
+  {
+    src: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=1200&q=80",
+    label: "Fake",
+    title: "Profile image",
   },
   {
-    title: "Financial Document",
-    score: "31%",
-    copy: "Validate identity photos and supporting documents for fraud checks.",
+    src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1200&q=80",
+    label: "True",
+    title: "Trusted photo",
   },
   {
-    title: "Video Calls",
-    score: "67%",
-    copy: "Scan recorded calls for face-swap artifacts and timing mismatches.",
-  },
-  {
-    title: "News Media",
-    score: "15%",
-    copy: "Verify viral clips before publishing or sharing them.",
-  },
-  {
-    title: "Scam Calls",
-    score: "22%",
-    copy: "Inspect suspicious voice notes and phone recordings quickly.",
+    src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80",
+    label: "Fake",
+    title: "Suspicious source",
   },
 ];
 
 const steps = [
   {
     title: "Upload Your File",
-    copy: "Choose an image, video, or audio file from your device. No sign-up required.",
+    copy:
+      "Click upload, pick an image, video, or audio clip, and let the browser send it to the backend for analysis.",
   },
   {
     title: "Let AI Do the Work",
-    copy: "The backend analyzes the file and generates a clear verdict with confidence details.",
+    copy:
+      "The backend compares the file against the local reference data and calculates the verdict and confidence.",
   },
   {
     title: "View the Results",
-    copy: "Review the summary, confidence, artifacts, and supporting metadata in one place.",
+    copy:
+      "See the verdict, confidence, findings, and any video frame or audio feature breakdown directly in the result panel.",
   },
   {
     title: "Download or Share",
-    copy: "Use the recent scan history to revisit results and share them with your team.",
+    copy:
+      "Use the scan history and report-style result card to revisit what the model found and share it with others.",
   },
 ];
 
-const trustCards = [
+const stepVisuals = [
   {
-    title: "Simple & Free to Use",
-    copy: "Upload and go. The interface is intentionally clean, fast, and easy to learn.",
+    number: "1",
+    title: "Upload Image",
+    subtitle: "Choose the file you want to inspect.",
+    src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",
   },
   {
-    title: "Natural, Accurate Results",
-    copy: "Readable verdicts, confidence values, and media context keep the output approachable.",
+    number: "2",
+    title: "Submit Image",
+    subtitle: "The scan starts as soon as the file is sent.",
+    src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80",
   },
   {
-    title: "See Real-World Use",
-    copy: "The layout works for classrooms, newsrooms, creators, and families alike.",
-  },
-  {
-    title: "Privacy First",
-    copy: "Files are sent to your backend for analysis and surfaced back in the browser.",
-  },
-];
-
-const testimonials = [
-  {
-    quote:
-      "I used Deepfake Detection during a lesson on historical photos. The scan results came fast and were easy for students to understand.",
-    name: "Emily Harper",
-    role: "High School History Teacher",
-  },
-  {
-    quote:
-      "The upload flow is clean, and the result card makes it simple to explain what the model is seeing to non-technical teammates.",
-    name: "Marcus Lee",
-    role: "Digital Investigations Analyst",
-  },
-];
-
-const faqs = [
-  {
-    question: "What is deepfake detection?",
-    answer:
-      "It is the process of identifying AI-generated or digitally manipulated images, videos, and voices by analyzing visual and audio cues, metadata, and model patterns.",
-  },
-  {
-    question: "How does deepfake detection work?",
-    answer:
-      "You upload a file, the backend analyzes it with the appropriate model, and the app presents a verdict, confidence, scan summary, and supporting details.",
-  },
-  {
-    question: "Which file types are supported?",
-    answer:
-      "The frontend supports image, video, and audio uploads and routes each file type to its matching analysis endpoint.",
-  },
-  {
-    question: "How fast is the analysis?",
-    answer:
-      "That depends on the file size and backend workload, but the interface is designed to feel immediate and easy to track while the scan is running.",
-  },
-  {
-    question: "Can I review previous scans?",
-    answer:
-      "Yes. The recent scans panel reads from the backend history feed so you can review prior uploads and verdicts.",
-  },
-  {
-    question: "Is the tool free?",
-    answer:
-      "The reference design emphasizes a free online workflow, and this frontend keeps that same no-friction presentation.",
+    number: "3",
+    title: "Get result",
+    subtitle: "Review a clean report with verdict and analysis.",
+    src: "https://images.unsplash.com/photo-1494891848038-7bd202a2afeb?auto=format&fit=crop&w=900&q=80",
   },
 ];
 
@@ -159,16 +112,15 @@ const audioFeatureCards = [
   { key: "pitch_std", label: "pitch std", scale: 1000 },
 ];
 
+function getScanLabel(scan) {
+  const verdict = String(scan?.verdict || "").toUpperCase();
+  if (verdict === "FAKE" || verdict === "REAL") return verdict;
+  return "INCONCLUSIVE";
+}
+
 function formatPercent(value) {
   if (typeof value !== "number" || Number.isNaN(value)) return "--";
   return `${Math.round(value * 100)}%`;
-}
-
-function formatCompactNumber(value) {
-  if (typeof value !== "number" || Number.isNaN(value)) return "0";
-  if (value < 1000) return `${Math.round(value)}`;
-  if (value < 1_000_000) return `${(value / 1000).toFixed(value >= 10_000 ? 0 : 1)}K`;
-  return `${(value / 1_000_000).toFixed(value >= 10_000_000 ? 0 : 1)}M`;
 }
 
 function formatDate(value) {
@@ -183,12 +135,10 @@ function formatFileSize(bytes) {
   const units = ["B", "KB", "MB", "GB"];
   let size = bytes;
   let unitIndex = 0;
-
   while (size >= 1024 && unitIndex < units.length - 1) {
     size /= 1024;
     unitIndex += 1;
   }
-
   return `${size.toFixed(size >= 10 || unitIndex === 0 ? 0 : 1)} ${units[unitIndex]}`;
 }
 
@@ -199,42 +149,29 @@ function getVerdictTone(verdict) {
   return "neutral";
 }
 
-function getRiskTone(risk) {
-  const normalized = String(risk || "").toUpperCase();
-  if (normalized === "LOW") return "real";
-  if (normalized === "MEDIUM") return "neutral";
-  if (normalized === "HIGH" || normalized === "CRITICAL") return "fake";
-  return "neutral";
-}
-
 function normalizeProbability(value) {
   if (typeof value !== "number" || !Number.isFinite(value)) return null;
   return value > 1 ? value / 100 : value;
 }
 
-function clampProbability(value) {
-  if (typeof value !== "number" || !Number.isFinite(value)) return 0;
-  return Math.max(0, Math.min(1, value));
-}
-
 function getConfidenceBreakdown(analysis) {
   const verdict = String(analysis?.verdict || "").toUpperCase();
-  const confidence = clampProbability(normalizeProbability(analysis?.confidence) ?? 0);
+  const confidence = normalizeProbability(analysis?.confidence) ?? 0;
   const directFake = normalizeProbability(analysis?.fake_probability);
 
   if (directFake !== null) {
-    const fake = clampProbability(directFake);
-    return { fake, real: clampProbability(1 - fake) };
+    const fake = Math.max(0, Math.min(1, directFake));
+    return { fake, real: Math.max(0, Math.min(1, 1 - fake)) };
   }
 
   if (verdict === "FAKE") {
     const fake = confidence || 0.5;
-    return { fake, real: clampProbability(1 - fake) };
+    return { fake, real: Math.max(0, Math.min(1, 1 - fake)) };
   }
 
   if (verdict === "REAL") {
     const real = confidence || 0.5;
-    return { fake: clampProbability(1 - real), real };
+    return { fake: Math.max(0, Math.min(1, 1 - real)), real };
   }
 
   return { fake: 0.5, real: 0.5 };
@@ -258,138 +195,23 @@ function formatFeatureValue(value) {
   return String(value);
 }
 
-function SectionHeader({ eyebrow, title, copy, action }) {
-  return (
-    <div className="section-header-row">
-      <div className="section-header">
-        <span className="eyebrow">{eyebrow}</span>
-        <h2>{title}</h2>
-        <p>{copy}</p>
-      </div>
-      {action}
-    </div>
-  );
-}
-
-function StatCard({ label, value, hint }) {
-  return (
-    <article className="stat-card">
-      <span>{label}</span>
-      <strong>{value}</strong>
-      {hint ? <p>{hint}</p> : null}
-    </article>
-  );
-}
-
-function FeatureCard({ title, copy }) {
-  return (
-    <article className="feature-card">
-      <strong>{title}</strong>
-      <p>{copy}</p>
-    </article>
-  );
-}
-
-function AudioFeatureTile({ title, value, meter, accent }) {
-  return (
-    <article className="audio-tile">
-      <span>{title}</span>
-      <strong>{value}</strong>
-      <div className="audio-meter" aria-hidden="true">
-        <div className={`audio-meter-fill ${accent}`} style={{ width: `${meter * 100}%` }} />
-      </div>
-    </article>
-  );
-}
-
-function AudioFeatureSnapshot({ audioFeatures }) {
-  const tiles = audioFeatureCards
-    .filter((item) => Object.prototype.hasOwnProperty.call(audioFeatures, item.key))
-    .map((item, index) => ({
-      ...item,
-      value: formatFeatureValue(audioFeatures[item.key]),
-      meter: getFeatureMeter(audioFeatures[item.key], item.scale, item.useAbsolute),
-      accent: index % 3 === 0 ? "amber" : index % 3 === 1 ? "sky" : "rose",
-    }));
-
-  if (!tiles.length) return null;
-
-  return (
-    <section className="feature-snapshot audio-snapshot">
-      <h4>Audio Feature Snapshot</h4>
-      <div className="feature-grid audio-grid">
-        {tiles.map((tile) => (
-          <AudioFeatureTile
-            key={tile.key}
-            title={tile.label}
-            value={tile.value}
-            meter={tile.meter}
-            accent={tile.accent}
-          />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function VideoFrameAnalysis({ frames }) {
-  if (!Array.isArray(frames) || !frames.length) return null;
-
-  return (
-    <section className="frame-analysis">
-      <h4>Video Frame Analysis</h4>
-      <div className="frame-grid">
-        {frames.map((frame) => (
-          <article key={`${frame.frame}-${frame.source_frame}`} className="frame-card">
-            <div className="frame-thumb">
-              {frame.thumbnail ? (
-                <img
-                  src={`data:image/jpeg;base64,${frame.thumbnail}`}
-                  alt={`Frame ${frame.frame}`}
-                />
-              ) : (
-                <div className="frame-thumb-fallback">No preview</div>
-              )}
-            </div>
-            <div className="frame-meta">
-              <div className="frame-meta-head">
-                <strong>Frame {frame.frame}</strong>
-                <span className={`frame-label ${getVerdictTone(frame.label)}`}>{frame.label}</span>
-              </div>
-              <p>Source frame {frame.source_frame}</p>
-              <p>{frame.reason}</p>
-              <div className="frame-stats">
-                <span>Fake {formatPercent(normalizeProbability(frame.fake_prob) ?? 0)}</span>
-                <span>Confidence {formatPercent(normalizeProbability(frame.confidence) ?? 0)}</span>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function ConfidencePieChart({ fake, real, verdict }) {
+function VerdictPieChart({ verdict, fake, real }) {
   const radius = 42;
   const circumference = 2 * Math.PI * radius;
   const fakeDash = circumference * fake;
   const realDash = circumference * real;
-  const label = verdict ? String(verdict).toUpperCase() : "INCONCLUSIVE";
+  const label = String(verdict || "INCONCLUSIVE").toUpperCase();
   const fakePercent = Math.round(fake * 100);
   const realPercent = Math.round(real * 100);
 
   return (
-    <section className="confidence-panel">
-      <div className="confidence-panel-head">
-        <div>
-          <span className="eyebrow">Confidence Breakdown</span>
-          <h4>Prediction split</h4>
-        </div>
-        <span className={`confidence-label ${getVerdictTone(verdict)}`}>{label}</span>
+    <section className="verdict-chart" aria-label="Verdict pie chart">
+      <div className="verdict-chart-head">
+        <span className="eyebrow">Result Chart</span>
+        <h4>Prediction split</h4>
       </div>
 
-      <div className="pie-wrap" aria-label="Confidence pie chart">
+      <div className="pie-wrap">
         <svg viewBox="0 0 120 120" role="img" aria-hidden="true">
           <circle className="pie-track" cx="60" cy="60" r={radius} />
           <circle
@@ -413,9 +235,10 @@ function ConfidencePieChart({ fake, real, verdict }) {
             }}
           />
         </svg>
+
         <div className="pie-center">
-          <strong>{Math.max(fakePercent, realPercent)}%</strong>
-          <span>highest</span>
+          <strong>{label}</strong>
+          <span>{Math.max(fakePercent, realPercent)}% confidence</span>
         </div>
       </div>
 
@@ -442,16 +265,18 @@ function App() {
   const [analysis, setAnalysis] = useState(null);
   const [analytics, setAnalytics] = useState(null);
   const [scanHistory, setScanHistory] = useState([]);
-  const [health, setHealth] = useState({ status: "checking", service: "Deepfake Detection" });
   const [error, setError] = useState("");
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [health, setHealth] = useState({ status: "checking", service: "Deepfake Detection" });
   const [analysisProgress, setAnalysisProgress] = useState(0);
-  const [isBootstrapping, setIsBootstrapping] = useState(true);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [toolOpen, setToolOpen] = useState(false);
+  const [showcaseIndex, setShowcaseIndex] = useState(0);
 
   const currentMedia = useMemo(
     () => mediaOptions.find((option) => option.id === activeMedia) ?? mediaOptions[0],
     [activeMedia]
   );
+
   const confidenceBreakdown = useMemo(() => getConfidenceBreakdown(analysis), [analysis]);
 
   useEffect(() => {
@@ -471,68 +296,43 @@ function App() {
   }, [file]);
 
   function startAnalysisProgress() {
-    setAnalysisProgress(15);
+    setAnalysisProgress(12);
     const timer = window.setInterval(() => {
       setAnalysisProgress((current) => {
         if (current >= 92) {
           window.clearInterval(timer);
           return current;
         }
-        return current + 9;
+        return current + 8;
       });
     }, 180);
     return timer;
   }
 
   async function loadDashboard() {
-    setIsBootstrapping(true);
     try {
       const healthResponse = await fetch("/api/health");
-      if (!healthResponse.ok) {
-        throw new Error("Backend health check failed.");
-      }
+      const healthData = healthResponse.ok ? await healthResponse.json() : null;
+      const normalizedStatus = String(healthData?.status || "").toLowerCase();
 
-      const [analyticsResult, scansResult, healthData] = await Promise.all([
-        fetch("/api/analytics")
-          .then((response) => (response.ok ? response.json() : null))
-          .catch(() => null),
-        fetch("/api/scans?limit=8")
-          .then((response) => (response.ok ? response.json() : null))
-          .catch(() => null),
-        healthResponse.json(),
-      ]);
-
-      const normalizedStatus = String(healthData.status || "").toLowerCase();
       setHealth({
         status: normalizedStatus === "ok" ? "online" : normalizedStatus || "online",
-        service: healthData.service || "Deepfake Detection",
+        service: healthData?.service || "Deepfake Detection",
       });
-      setAnalytics(
-        analyticsResult ?? {
-          total_scans: 0,
-          real_count: 0,
-          fake_count: 0,
-          inconclusive_count: 0,
-          by_type: {
-            image: { total: 0, real: 0, fake: 0 },
-            audio: { total: 0, real: 0, fake: 0 },
-            video: { total: 0, real: 0, fake: 0 },
-          },
-        }
-      );
+
+      const analyticsResult = await fetch("/api/analytics")
+        .then((response) => (response.ok ? response.json() : null))
+        .catch(() => null);
+      const scansResult = await fetch("/api/scans?limit=8")
+        .then((response) => (response.ok ? response.json() : null))
+        .catch(() => null);
+      setAnalytics(analyticsResult);
       setScanHistory(Array.isArray(scansResult?.scans) ? scansResult.scans : []);
       setError("");
     } catch (loadError) {
       setHealth({ status: "offline", service: "Backend unavailable" });
       setError(loadError.message || "Could not load dashboard data.");
-    } finally {
-      setIsBootstrapping(false);
     }
-  }
-
-  async function handleAnalyze(event) {
-    event.preventDefault();
-    await analyzePreparedFile(file, activeMedia);
   }
 
   async function analyzePreparedFile(preparedFile, mediaId = activeMedia) {
@@ -572,7 +372,7 @@ function App() {
       }
 
       setAnalysis(payload);
-      setFile(null);
+      setToolOpen(true);
       await loadDashboard();
     } catch (requestError) {
       setError(requestError.message || "Analysis request failed.");
@@ -588,34 +388,66 @@ function App() {
   const imageScans = analytics?.by_type?.image?.total ?? 0;
   const audioScans = analytics?.by_type?.audio?.total ?? 0;
   const videoScans = analytics?.by_type?.video?.total ?? 0;
-  const videoFrameAnalysis =
-    analysis?.frame_analysis ?? analysis?.frameAnalysis ?? analysis?.frames ?? [];
   const verdictLabel = analysis?.verdict ? String(analysis.verdict).toUpperCase() : "WAITING";
   const confidence = formatPercent(analysis?.confidence);
-  const heroCount = totalScans > 0 ? formatCompactNumber(totalScans) : "50,000+";
+  const selectedShowcase = [
+    showcaseCards[showcaseIndex % showcaseCards.length],
+    showcaseCards[(showcaseIndex + 1) % showcaseCards.length],
+    showcaseCards[(showcaseIndex + 2) % showcaseCards.length],
+  ];
+
+  const featureTiles = analysis?.audio_features
+    ? audioFeatureCards
+        .filter((item) => Object.prototype.hasOwnProperty.call(analysis.audio_features, item.key))
+        .map((item, index) => ({
+          ...item,
+          value: formatFeatureValue(analysis.audio_features[item.key]),
+          meter: getFeatureMeter(analysis.audio_features[item.key], item.scale, item.useAbsolute),
+          accent: index % 3 === 0 ? "blue" : index % 3 === 1 ? "cyan" : "sky",
+        }))
+    : [];
+
+  const videoFrameAnalysis =
+    analysis?.frame_analysis ?? analysis?.frameAnalysis ?? analysis?.frames ?? [];
 
   return (
     <div className="app-shell">
-      <div className="ambient ambient-left" />
-      <div className="ambient ambient-right" />
-
-      <header className="site-shell site-nav">
-        <a className="brand" href="#home">
-          <span className="brand-mark">D</span>
+      <header className="topbar shell">
+        <a className="brand" href="#home" aria-label="Deepfake Detection">
+          <span className="brand-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10" cy="10" r="6.25" />
+              <path d="M15 15l5 5" />
+            </svg>
+          </span>
           <span>
             <strong>Deepfake Detection</strong>
-            <small>AI deepfake detection online free</small>
           </span>
         </a>
 
         <nav className="nav-links" aria-label="Primary">
-          <a href="#home">Home</a>
-          <a href="#tools">Tools</a>
+          <a className="active" href="#home">
+            Home
+          </a>
+          <a href="#tools">
+            Deepfake Detection Tools <span className="chev">⌄</span>
+          </a>
           <a href="#about">About</a>
+          <a href="#credits">Credits</a>
         </nav>
+
+        <a className="nav-cta" href="#tools">
+          <span className="user-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="3.5" />
+              <path d="M4.5 20c1.5-4 4.25-6 7.5-6s6 2 7.5 6" />
+            </svg>
+          </span>
+          Sign in
+        </a>
       </header>
 
-      <main className="site-shell">
+      <main className="shell page">
         <section className="hero" id="home">
           <div className="hero-copy">
             <span className="eyebrow">Deepfake Detection Tools</span>
@@ -626,38 +458,129 @@ function App() {
               that still talks to your backend.
             </p>
 
-            <div className="avatar-row" aria-label="User reviews">
-              <div className="avatar-stack">
-                <span>EH</span>
-                <span>ML</span>
-                <span>SK</span>
-                <span>TR</span>
+            <div className="social-proof">
+              <div className="avatar-row" aria-label="User reviews">
+                <span />
+                <span />
+                <span />
+                <span />
               </div>
-              <div>
-                <strong>50,000+ deepfakes detected successfully</strong>
-                <p>Used by teachers, journalists, creators, and families.</p>
-              </div>
+              <div className="stars">★★★★★</div>
+              <p>50,000+ deepfakes detected successfully</p>
             </div>
 
             <div className="hero-actions">
               <a className="primary-button" href="#tools">
                 Try Deepfake Detection
+                <span aria-hidden="true">→</span>
               </a>
-              <span className="hero-chip">{heroCount}+ scans processed</span>
-            </div>
-
-            <div className="hero-stats">
-              <StatCard label="Total scans" value={formatCompactNumber(totalScans)} hint="All uploads processed by the backend." />
-              <StatCard label="Image scans" value={formatCompactNumber(imageScans)} hint="Image analysis requests." />
-              <StatCard label="Video scans" value={formatCompactNumber(videoScans)} hint="Video analysis requests." />
             </div>
           </div>
 
-          <aside className="hero-panel" id="tools">
-            <div className="panel-topline">
+          <div className="hero-gallery">
+            <button className="gallery-arrow left" type="button" onClick={() => setShowcaseIndex((index) => (index + showcaseCards.length - 1) % showcaseCards.length)}>
+              ‹
+            </button>
+            <div className="gallery-grid">
+              {heroGallery.map((item) => (
+                <article key={item.title} className="gallery-card hero-card">
+                  <img src={item.src} alt={item.title} />
+                  <span className={`result-badge ${item.label.toLowerCase()}`}>{item.label}</span>
+                </article>
+              ))}
+            </div>
+            <button className="gallery-arrow right" type="button" onClick={() => setShowcaseIndex((index) => (index + 1) % showcaseCards.length)}>
+              ›
+            </button>
+          </div>
+        </section>
+
+        <section className="section centered">
+          <span className="eyebrow">Different Deepfake Detection Online</span>
+          <h2>Different Deepfake Detection Online</h2>
+          <p className="section-lead">
+            Whether it&apos;s for education, research, or just peace of mind, people love using
+            deepfake detection to stay safe and informed.
+          </p>
+
+          <div className="showcase-wrap">
+            <button
+              className="gallery-arrow floating left"
+              type="button"
+              onClick={() => setShowcaseIndex((index) => (index + showcaseCards.length - 1) % showcaseCards.length)}
+            >
+              ‹
+            </button>
+
+            <div className="showcase-grid">
+              {selectedShowcase.map((item) => (
+                <article key={`${item.title}-${item.label}`} className="showcase-card">
+                  <img src={item.src} alt={item.title} />
+                  <span className={`result-badge ${item.label.toLowerCase()}`}>{item.label}</span>
+                </article>
+              ))}
+            </div>
+
+            <button
+              className="gallery-arrow floating right"
+              type="button"
+              onClick={() => setShowcaseIndex((index) => (index + 1) % showcaseCards.length)}
+            >
+              ›
+            </button>
+          </div>
+        </section>
+
+        <section className="section how-grid" id="about">
+          <div className="how-copy">
+            <span className="eyebrow">How to Use Deepfake Detection</span>
+            <h2>How to Use Deepfake Detection</h2>
+            <p className="section-lead">
+              It&apos;s super easy. Just follow these steps to check if an image, video, or voice
+              is real or totally fake.
+            </p>
+
+            <div className="step-list">
+              {steps.map((step, index) => (
+                <article key={step.title} className="step-copy">
+                  <div className="step-icon">
+                    <span>{index + 1}</span>
+                  </div>
+                  <div>
+                    <h3>{step.title}</h3>
+                    <p>{step.copy}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="how-preview">
+            {stepVisuals.map((step) => (
+              <article key={step.number} className="preview-card">
+                <div className="preview-header">
+                  <div className="preview-number">{step.number}</div>
+                  <strong>{step.title}</strong>
+                </div>
+                <img src={step.src} alt={step.title} />
+                <p>{step.subtitle}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section cta-strip">
+          <a className="primary-button large" href="#tools">
+            Try Deepfake Detection Now <span aria-hidden="true">→</span>
+          </a>
+        </section>
+
+        <section className="section" id="tools">
+          <div className="tool-shell">
+            <div className="tool-head">
               <div>
-                <span className="eyebrow">Tool interface</span>
-                <h2>Upload a file and review the verdict</h2>
+                <span className="eyebrow">Free Online Detection</span>
+                <h2>Upload and review the verdict</h2>
               </div>
               <span className={`status-pill ${health.status === "online" ? "online" : "offline"}`}>
                 <span className="status-dot" />
@@ -665,16 +588,17 @@ function App() {
               </span>
             </div>
 
-            <div className="media-tabs" role="tablist" aria-label="Media type">
+            <div className="tool-tabs">
               {mediaOptions.map((option) => (
                 <button
                   key={option.id}
                   type="button"
-                  className={option.id === activeMedia ? "media-tab active" : "media-tab"}
+                  className={option.id === activeMedia ? "tool-tab active" : "tool-tab"}
                   onClick={() => {
                     setActiveMedia(option.id);
                     setFile(null);
                     setAnalysis(null);
+                    setToolOpen(false);
                     setError("");
                   }}
                 >
@@ -683,7 +607,13 @@ function App() {
               ))}
             </div>
 
-            <form className="upload-form" onSubmit={handleAnalyze}>
+            <form
+              className="tool-form"
+              onSubmit={async (event) => {
+                event.preventDefault();
+                await analyzePreparedFile(file, activeMedia);
+              }}
+            >
               <label className="dropzone">
                 <input
                   key={activeMedia}
@@ -720,7 +650,7 @@ function App() {
             </form>
 
             {analysisProgress > 0 ? (
-              <div className="analysis-progress" aria-live="polite" aria-label="Analysis progress">
+              <div className="analysis-progress">
                 <div className="analysis-progress-head">
                   <span>Analyzing media</span>
                   <strong>{analysisProgress}%</strong>
@@ -731,267 +661,146 @@ function App() {
               </div>
             ) : null}
 
-            <div className="panel-stats">
-              <div>
-                <strong>{imageScans}</strong>
-                <span>Image scans</span>
-              </div>
-              <div>
-                <strong>{audioScans}</strong>
-                <span>Voice scans</span>
-              </div>
-              <div>
-                <strong>{videoScans}</strong>
-                <span>Video scans</span>
-              </div>
-            </div>
-          </aside>
-        </section>
-
-        <section className="section">
-          <SectionHeader
-            eyebrow="Different Deepfake Detection Online"
-            title="Whether it's for education, research, or peace of mind, the workflow stays simple."
-            copy="This layout keeps the reference site&apos;s rhythm while showing the actual upload and result experience from your backend."
-          />
-
-          <div className="use-case-grid">
-            {useCases.map((item) => (
-              <article key={item.title} className="use-case-card">
-                <span className="case-score">{item.score} Deepfake</span>
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="section section-split" id="about">
-          <SectionHeader
-            eyebrow="How to Use Deepfake Detection"
-            title="Just follow these steps to check if a file is real or fake."
-            copy="The flow is designed to feel obvious on desktop and mobile."
-          />
-
-          <div className="step-grid">
-            {steps.map((step, index) => (
-              <article key={step.title} className="step-card">
-                <span className="step-index">0{index + 1}</span>
-                <h3>{step.title}</h3>
-                <p>{step.copy}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="section">
-          <SectionHeader
-            eyebrow="Why Thousands Trust Our Tool"
-            title="Readable results, polished visuals, and a private-feeling experience."
-            copy="The goal is not only to match the tone of the reference, but to keep your existing analysis output easy to understand."
-          />
-
-          <div className="trust-grid">
-            {trustCards.map((card) => (
-              <FeatureCard key={card.title} title={card.title} copy={card.copy} />
-            ))}
-          </div>
-        </section>
-
-        <section className="section">
-          <div className="quote-grid">
-            {testimonials.map((item) => (
-              <article key={item.name} className="quote-card">
-                <p className="quote-mark">&ldquo;</p>
-                <p>{item.quote}</p>
-                <div>
-                  <strong>{item.name}</strong>
-                  <span>{item.role}</span>
+            {analysis ? (
+              <div className="result-panel">
+                <div className="result-panel-head">
+                  <span className="result-label">Latest result</span>
+                  <span className={`result-pill ${getVerdictTone(analysis.verdict)}`}>
+                    {verdictLabel}
+                  </span>
                 </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="section result-section">
-          <SectionHeader
-            eyebrow="Free Online Deepfake Detection at Your Fingertips"
-            title="Start using the detector now, then review the backend result below."
-            copy="This is where your real scan output appears after each upload, keeping the main experience aligned with the reference site but connected to your API."
-          />
-
-          <div className="result-grid">
-            <article className="result-card">
-              <div className="result-head">
-                <div>
-                  <span className="result-label">Latest Result</span>
-                  <h3>{analysis?.summary || "Run a scan to see the model verdict"}</h3>
-                </div>
-                <div className={`verdict-pill ${analysis ? getVerdictTone(analysis.verdict) : "neutral"}`}>
-                  {verdictLabel}
-                </div>
-              </div>
-
-              <div className="result-metrics">
-                <div>
-                  <span>Confidence</span>
-                  <strong>{confidence}</strong>
-                </div>
-                <div>
-                  <span>Risk level</span>
-                  <strong className={analysis?.risk_level ? getRiskTone(analysis.risk_level) : ""}>
-                    {analysis?.risk_level || "--"}
-                  </strong>
-                </div>
-                <div>
-                  <span>File</span>
-                  <strong>{analysis?.filename || "No file analyzed yet"}</strong>
-                </div>
-              </div>
-
-              {analysis ? (
-                <ConfidencePieChart
-                  fake={confidenceBreakdown.fake}
-                  real={confidenceBreakdown.real}
-                  verdict={analysis.verdict}
-                />
-              ) : null}
-
-              {analysis ? (
-                <div className="result-body">
-                  <div className="result-meta">
-                    <span>{formatFileSize(analysis.file_size)}</span>
-                    <span>{formatDate(analysis.created_at)}</span>
-                    <span>{analysis.media_type || currentMedia.title}</span>
+                <h3>{analysis.summary || "Run a scan to see the model verdict"}</h3>
+                <div className="result-meta">
+                  <div>
+                    <span>Confidence</span>
+                    <strong>{confidence}</strong>
                   </div>
+                  <div>
+                    <span>Risk</span>
+                    <strong>{analysis.risk_level || "--"}</strong>
+                  </div>
+                  <div>
+                    <span>File</span>
+                    <strong>{analysis.filename || "No file analyzed yet"}</strong>
+                  </div>
+                </div>
 
-                  <div className="result-columns">
-                    <section>
-                      <h4>Findings</h4>
-                      {analysis.details?.length ? (
-                        <ul className="detail-list">
-                          {analysis.details.map((detail, index) => (
-                            <li key={`${detail.category || "detail"}-${index}`}>
-                              <strong>{detail.category || "Note"}:</strong> {detail.finding}
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className="muted">No detailed findings were returned for this scan.</p>
-                      )}
-                    </section>
+                <VerdictPieChart verdict={analysis.verdict} fake={confidenceBreakdown.fake} real={confidenceBreakdown.real} />
 
-                    <section>
-                      <h4>Artifacts</h4>
-                      {analysis.artifacts_detected?.length ? (
-                        <div className="chip-row">
-                          {analysis.artifacts_detected.map((artifact) => (
-                            <span key={artifact} className="chip">
-                              {artifact}
+                <div className="result-text">
+                  <span>{formatDate(analysis.created_at)}</span>
+                  <span>{analysis.media_type || currentMedia.title}</span>
+                </div>
+
+                {String(analysis.media_type || "").toLowerCase() === "video" && videoFrameAnalysis.length ? (
+                  <section className="frame-analysis">
+                    <h4>Video Frame Analysis</h4>
+                    <div className="frame-list">
+                      {videoFrameAnalysis.map((frame) => (
+                        <article key={`${frame.frame}-${frame.source_frame}`} className="frame-item">
+                          <div className="frame-thumb">
+                            {frame.thumbnail ? (
+                              <img src={`data:image/jpeg;base64,${frame.thumbnail}`} alt={`Frame ${frame.frame}`} />
+                            ) : (
+                              <span>No preview</span>
+                            )}
+                          </div>
+                          <div className="frame-copy">
+                            <div className="frame-copy-head">
+                              <strong>Frame {frame.frame}</strong>
+                              <span className={`frame-chip ${getVerdictTone(frame.label)}`}>{frame.label}</span>
+                            </div>
+                            <p>{frame.reason}</p>
+                          </div>
+                        </article>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
+
+                {featureTiles.length ? (
+                  <section className="feature-snapshot">
+                    <h4>Audio Feature Snapshot</h4>
+                    <div className="feature-grid">
+                      {featureTiles.map((tile) => (
+                        <article key={tile.key} className="feature-card mini">
+                          <span>{tile.label}</span>
+                          <strong>{tile.value}</strong>
+                          <div className="meter">
+                            <div className={`meter-fill ${tile.accent}`} style={{ width: `${tile.meter * 100}%` }} />
+                          </div>
+                        </article>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
+              </div>
+            ) : null}
+
+            <div className="recent-scans">
+              <div className="recent-head">
+                <span className="eyebrow">Recent scans</span>
+                <h3>What the system processed recently</h3>
+                <p>The latest stored scans are pulled from the backend history feed.</p>
+              </div>
+
+              {scanHistory.length ? (
+                <div className="history-table-wrap">
+                  <table className="history-table">
+                    <thead>
+                      <tr>
+                        <th>File</th>
+                        <th>Type</th>
+                        <th>Verdict</th>
+                        <th>Risk</th>
+                        <th>Created</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {scanHistory.map((scan) => (
+                        <tr key={scan.scan_id}>
+                          <td className="history-file">{scan.filename || "Unnamed file"}</td>
+                          <td>{scan.media_type || "Unknown"}</td>
+                          <td>
+                            <span className={`history-pill ${getVerdictTone(scan.verdict)}`}>
+                              {getScanLabel(scan)}
                             </span>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="muted">No explicit artifacts were detected.</p>
-                      )}
-
-                      <h4>Recommendation</h4>
-                      <p>{analysis.recommendation || "No recommendation was provided."}</p>
-                    </section>
-                  </div>
-
-                  {String(analysis.media_type || "").toLowerCase() === "video" && videoFrameAnalysis.length ? (
-                    <VideoFrameAnalysis frames={videoFrameAnalysis} />
-                  ) : null}
-
-                  {analysis.audio_features ? <AudioFeatureSnapshot audioFeatures={analysis.audio_features} /> : null}
+                          </td>
+                          <td>
+                            <span className={`history-pill ${getVerdictTone(scan.verdict)}`}>
+                              {scan.risk_level || "--"}
+                            </span>
+                          </td>
+                          <td>{formatDate(scan.created_at)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               ) : (
-                <div className="empty-state">
-                  <p>No scan has been run in this session yet.</p>
-                </div>
+                <p className="muted">
+                  {health.status === "checking"
+                    ? "Loading recent scans..."
+                    : "No scan history is available yet."}
+                </p>
               )}
-            </article>
-
-            <aside className="history-card">
-              <SectionHeader
-                eyebrow="Recent scans"
-                title="What the system processed recently"
-                copy="The latest stored scans are pulled from the backend history feed."
-              />
-
-              <div className="history-list">
-                {scanHistory.length ? (
-                  scanHistory.map((scan) => (
-                    <article key={scan.scan_id} className="history-item">
-                      <div className="history-copy">
-                        <strong>{scan.filename || "Unnamed file"}</strong>
-                        <p>
-                          {scan.media_type || "Unknown"} | {formatDate(scan.created_at)}
-                        </p>
-                      </div>
-                      <span className={`history-tag ${getVerdictTone(scan.verdict)}`}>
-                        {scan.verdict || "INCONCLUSIVE"}
-                      </span>
-                    </article>
-                  ))
-                ) : (
-                  <p className="muted">{isBootstrapping ? "Loading recent scans..." : "No scan history is available yet."}</p>
-                )}
-              </div>
-            </aside>
+            </div>
           </div>
         </section>
 
-        <section className="section" id="faq">
-          <SectionHeader eyebrow="Frequently Asked Questions" title="Common questions, answered clearly." />
-          <FaqAccordion items={faqs} />
+        <section className="section footer-links">
+          <div id="credits">
+            <span className="eyebrow">Credits</span>
+            <h2>Built to help people check media quickly and clearly.</h2>
+            <p className="section-lead">
+              This landing page keeps the reference style while staying connected to your backend
+              analysis flow.
+            </p>
+          </div>
         </section>
       </main>
 
       {error ? <div className="banner error">{error}</div> : null}
-
-      <footer className="site-footer">
-        <div>
-          <strong>Deepfake Detection</strong>
-          <p>Free AI-powered detection for images, videos, and audio files.</p>
-        </div>
-        <div className="footer-links">
-          <a href="#tools">Tools</a>
-          <a href="#about">How it works</a>
-          <a href="#faq">FAQ</a>
-        </div>
-        <div className="footer-meta">Copyright 2026 Deepfake Detection. All rights reserved.</div>
-      </footer>
-    </div>
-  );
-}
-
-function FaqItem({ item, open, onToggle }) {
-  return (
-    <article className={`faq-item ${open ? "open" : ""}`}>
-      <button type="button" className="faq-question" onClick={onToggle} aria-expanded={open}>
-        <span>{item.question}</span>
-        <span className="faq-icon">{open ? "-" : "+"}</span>
-      </button>
-      {open ? <p className="faq-answer">{item.answer}</p> : null}
-    </article>
-  );
-}
-
-function FaqAccordion({ items }) {
-  const [openIndex, setOpenIndex] = useState(0);
-
-  return (
-    <div className="faq-list">
-      {items.map((item, index) => (
-        <FaqItem
-          key={item.question}
-          item={item}
-          open={openIndex === index}
-          onToggle={() => setOpenIndex(openIndex === index ? -1 : index)}
-        />
-      ))}
     </div>
   );
 }
