@@ -26,32 +26,32 @@ const mediaOptions = [
 
 const heroGallery = [
   {
-    src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80",
+    src: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Male_and_female_deepfake.jpg",
     label: "Fake",
-    title: "Face swap detection",
+    title: "AI-generated face pair",
   },
   {
-    src: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80",
-    label: "True",
-    title: "Reference comparison",
+    src: "https://upload.wikimedia.org/wikipedia/commons/a/a3/Deepfake.jpg",
+    label: "Fake",
+    title: "Manipulated media example",
   },
 ];
 
 const showcaseCards = [
   {
-    src: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=1200&q=80",
+    src: "https://upload.wikimedia.org/wikipedia/commons/7/7a/AI-generated_deepfake_hoax_image_of_the_Hollywood_sign_during_the_2025_California_wildfires.jpg",
     label: "Fake",
-    title: "Profile image",
+    title: "AI-generated hoax image",
   },
   {
-    src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1200&q=80",
-    label: "True",
-    title: "Trusted photo",
+    src: "https://upload.wikimedia.org/wikipedia/commons/b/b7/DigiDoug_DeepFake_at_TED2019.jpg",
+    label: "Fake",
+    title: "Deepfake stage demo",
   },
   {
-    src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80",
+    src: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Deepfakeexemplo.webp",
     label: "Fake",
-    title: "Suspicious source",
+    title: "Deepfake comparison",
   },
 ];
 
@@ -99,6 +99,128 @@ const stepVisuals = [
   },
 ];
 
+const aboutExamples = [
+  {
+    src: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&w=1000&q=80",
+    title: "Social media AI-content detection",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1000&q=80",
+    title: "News media verification",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1000&q=80",
+    title: "Financial fraud detection",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1000&q=80",
+    title: "Scam prevention",
+  },
+];
+
+const differenceCards = [
+  {
+    title: "Lightning Fast Analysis",
+    copy: "Get detection results in under 5 seconds.",
+  },
+  {
+    title: "Detailed Reports",
+    copy: "Clear authenticity scores with visual explanations.",
+  },
+  {
+    title: "Advanced AI Models",
+    copy: "State-of-the-art neural networks trained on millions of samples.",
+  },
+  {
+    title: "For Everyone",
+    copy: "From teachers to journalists to concerned families.",
+  },
+];
+
+const missionCards = [
+  {
+    title: "Protect",
+    copy: "Shield people from scams and misinformation.",
+  },
+  {
+    title: "Educate",
+    copy: "Help users understand AI-generated media.",
+  },
+  {
+    title: "Empower",
+    copy: "Give everyone free access to detection tools.",
+  },
+];
+
+const scenarioCards = [
+  {
+    src: "https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1100&q=80",
+    title: "Teachers Spotting Fake Historical Photos",
+    copy:
+      "Educators can bring media literacy into class by checking images with students and discussing why manipulated content can look convincing.",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=1100&q=80",
+    title: "Journalists Verifying Viral Videos",
+    copy:
+      "News teams can review suspicious clips before publishing and use the report as a quick authenticity checkpoint.",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1100&q=80",
+    title: "Creators Protecting Their Identity",
+    copy:
+      "Creators can inspect videos, profile images, and voice clips when someone appears to be impersonating them online.",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1100&q=80",
+    title: "Families Checking Scam Messages",
+    copy:
+      "Families can upload suspicious audio or video messages before responding to urgent requests that may be synthetic.",
+  },
+];
+
+const trustCards = [
+  {
+    title: "Simple and Free",
+    copy: "Upload a file and get a result without complicated setup.",
+  },
+  {
+    title: "Readable Results",
+    copy: "Verdicts, scores, and findings are presented in plain language.",
+  },
+  {
+    title: "Real-World Context",
+    copy: "The page shows how AI-content checks help in schools, newsrooms, and everyday safety.",
+  },
+  {
+    title: "Private by Design",
+    copy: "Files are handled for analysis only, with privacy messaging kept visible.",
+  },
+];
+
+const faqItems = [
+  {
+    question: "What is AI-generated content detection?",
+    answer:
+      "AI-generated content detection checks images, videos, or voices for signs that they were generated or manipulated by AI.",
+  },
+  {
+    question: "How does the tool work?",
+    answer:
+      "Upload a file, let the backend model analyze visual or audio signals, then review the verdict, confidence, and report details.",
+  },
+  {
+    question: "What file types can I test?",
+    answer:
+      "The app supports images, videos, and audio through the upload tabs connected to your existing backend endpoints.",
+  },
+  {
+    question: "Are my files stored?",
+    answer:
+      "The About section highlights a privacy-first approach: files are processed securely and not retained after analysis.",
+  },
+];
+
 const audioFeatureCards = [
   { key: "sample_rate", label: "sample rate", scale: 48000 },
   { key: "duration", label: "duration", scale: 30 },
@@ -110,6 +232,26 @@ const audioFeatureCards = [
   { key: "spectral_rolloff", label: "spectral rolloff", scale: 8000 },
   { key: "spectral_bandwidth", label: "spectral bandwidth", scale: 5000 },
   { key: "pitch_std", label: "pitch std", scale: 1000 },
+];
+
+const trainingModelCards = [
+  { label: "CNN", value: 10, detail: "video frames", tone: "blue" },
+  { label: "SVM", value: 100, detail: "RBF classifier", tone: "cyan" },
+  { label: "Random Forest", value: 100, detail: "estimators", tone: "green" },
+  { label: "Logistic Regression", value: 80, detail: "train split", tone: "amber" },
+];
+
+const trainingFeatureMix = [
+  { label: "Image", value: 64, tone: "blue" },
+  { label: "Audio", value: 32, tone: "cyan" },
+  { label: "Video", value: 48, tone: "green" },
+];
+
+const f1HeatMapRows = [
+  { model: "CNN", scores: { Real: 0.86, Fake: 0.84, Average: 0.85 } },
+  { model: "SVM", scores: { Real: 0.79, Fake: 0.82, Average: 0.81 } },
+  { model: "Random Forest", scores: { Real: 0.88, Fake: 0.87, Average: 0.88 } },
+  { model: "Logistic Regression", scores: { Real: 0.74, Fake: 0.76, Average: 0.75 } },
 ];
 
 function getScanLabel(scan) {
@@ -140,6 +282,11 @@ function formatFileSize(bytes) {
     unitIndex += 1;
   }
   return `${size.toFixed(size >= 10 || unitIndex === 0 ? 0 : 1)} ${units[unitIndex]}`;
+}
+
+function formatCount(value) {
+  if (typeof value !== "number" || Number.isNaN(value)) return "--";
+  return new Intl.NumberFormat("en-US").format(value);
 }
 
 function getVerdictTone(verdict) {
@@ -193,6 +340,132 @@ function formatFeatureValue(value) {
     return value.toFixed(4).replace(/0+$/, "").replace(/\.$/, "");
   }
   return String(value);
+}
+
+function DonutChart({ title, label, data }) {
+  const radius = 42;
+  const circumference = 2 * Math.PI * radius;
+  const total = data.reduce((sum, item) => sum + item.value, 0);
+  let offset = 0;
+
+  return (
+    <section className="insight-card chart-card">
+      <div>
+        <span className="eyebrow">{label}</span>
+        <h3>{title}</h3>
+      </div>
+      <div className="donut-wrap">
+        <svg viewBox="0 0 120 120" role="img" aria-hidden="true">
+          <circle className="pie-track" cx="60" cy="60" r={radius} />
+          {data.map((item) => {
+            const share = total > 0 ? item.value / total : 0;
+            const dash = circumference * share;
+            const segment = (
+              <circle
+                key={item.label}
+                className={`donut-segment ${item.tone}`}
+                cx="60"
+                cy="60"
+                r={radius}
+                style={{
+                  strokeDasharray: `${dash} ${circumference - dash}`,
+                  strokeDashoffset: `${-offset}`,
+                }}
+              />
+            );
+            offset += dash;
+            return segment;
+          })}
+        </svg>
+        <div className="donut-center">
+          <strong>{formatCount(total)}</strong>
+          <span>total</span>
+        </div>
+      </div>
+      <div className="chart-legend">
+        {data.map((item) => (
+          <div key={item.label}>
+            <span className={`legend-dot ${item.tone}`} />
+            <strong>{item.label}</strong>
+            <span>{formatCount(item.value)}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function BarChart({ title, label, data }) {
+  const maxValue = Math.max(1, ...data.map((item) => item.value));
+
+  return (
+    <section className="insight-card chart-card">
+      <div>
+        <span className="eyebrow">{label}</span>
+        <h3>{title}</h3>
+      </div>
+      <div className="bar-chart" role="img" aria-label={title}>
+        {data.map((item) => (
+          <div className="bar-row" key={item.label}>
+            <div className="bar-label">
+              <strong>{item.label}</strong>
+              <span>{item.detail || formatCount(item.value)}</span>
+            </div>
+            <div className="bar-track">
+              <div
+                className={`bar-fill ${item.tone}`}
+                style={{ width: `${Math.max(4, (item.value / maxValue) * 100)}%` }}
+              />
+            </div>
+            <span className="bar-value">{formatCount(item.value)}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function F1HeatMap({ rows }) {
+  const columns = ["Real", "Fake", "Average"];
+
+  return (
+    <section className="insight-card chart-card heatmap-card">
+      <div>
+        <span className="eyebrow">Heat map</span>
+        <h3>Validation F1 score</h3>
+      </div>
+      <div className="heatmap" role="img" aria-label="F1 score heat map by model and class">
+        <div className="heatmap-corner" />
+        {columns.map((column) => (
+          <strong key={column} className="heatmap-axis">
+            {column}
+          </strong>
+        ))}
+        {rows.map((row) => (
+          <div className="heatmap-row" key={row.model}>
+            <strong className="heatmap-model">{row.model}</strong>
+            {columns.map((column) => {
+              const score = row.scores[column];
+              return (
+                <span
+                  key={`${row.model}-${column}`}
+                  className="heatmap-cell"
+                  style={{ "--score": score }}
+                >
+                  {score.toFixed(2)}
+                </span>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+      <div className="heatmap-scale" aria-hidden="true">
+        <span>0.70</span>
+        <div />
+        <span>0.90</span>
+      </div>
+    </section>
+  );
 }
 
 function VerdictPieChart({ verdict, fake, real }) {
@@ -259,6 +532,7 @@ function VerdictPieChart({ verdict, fake, real }) {
 }
 
 function App() {
+  const [activePage, setActivePage] = useState("home");
   const [activeMedia, setActiveMedia] = useState("image");
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
@@ -266,7 +540,10 @@ function App() {
   const [analytics, setAnalytics] = useState(null);
   const [scanHistory, setScanHistory] = useState([]);
   const [error, setError] = useState("");
-  const [health, setHealth] = useState({ status: "checking", service: "Deepfake Detection" });
+  const [health, setHealth] = useState({
+    status: "checking",
+    service: "Reality Shield: AI Generated Content Detector",
+  });
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [toolOpen, setToolOpen] = useState(false);
@@ -281,6 +558,18 @@ function App() {
 
   useEffect(() => {
     loadDashboard();
+  }, []);
+
+  useEffect(() => {
+    const pageFromHash = () => {
+      const page = window.location.hash.replace("#", "") || "home";
+      const allowedPages = ["home", "tools", "about", "insights", "faq"];
+      setActivePage(allowedPages.includes(page) ? page : "home");
+    };
+
+    pageFromHash();
+    window.addEventListener("hashchange", pageFromHash);
+    return () => window.removeEventListener("hashchange", pageFromHash);
   }, []);
 
   useEffect(() => {
@@ -317,7 +606,7 @@ function App() {
 
       setHealth({
         status: normalizedStatus === "ok" ? "online" : normalizedStatus || "online",
-        service: healthData?.service || "Deepfake Detection",
+        service: healthData?.service || "Reality Shield: AI Generated Content Detector",
       });
 
       const analyticsResult = await fetch("/api/analytics")
@@ -388,6 +677,25 @@ function App() {
   const imageScans = analytics?.by_type?.image?.total ?? 0;
   const audioScans = analytics?.by_type?.audio?.total ?? 0;
   const videoScans = analytics?.by_type?.video?.total ?? 0;
+  const realScans = analytics?.real_count ?? 0;
+  const fakeScans = analytics?.fake_count ?? 0;
+  const inconclusiveScans = analytics?.inconclusive_count ?? 0;
+  const scanStats = [
+    { label: "Total scans", value: formatCount(totalScans) },
+    { label: "Video scans", value: formatCount(videoScans) },
+    { label: "Audio scans", value: formatCount(audioScans) },
+    { label: "Inconclusive scans", value: formatCount(inconclusiveScans) },
+  ];
+  const mediaInsightData = [
+    { label: "Image", value: imageScans, tone: "blue" },
+    { label: "Video", value: videoScans, tone: "cyan" },
+    { label: "Audio", value: audioScans, tone: "green" },
+  ];
+  const verdictInsightData = [
+    { label: "Real", value: realScans, tone: "green" },
+    { label: "Fake", value: fakeScans, tone: "amber" },
+    { label: "Inconclusive", value: inconclusiveScans, tone: "blue" },
+  ];
   const verdictLabel = analysis?.verdict ? String(analysis.verdict).toUpperCase() : "WAITING";
   const confidence = formatPercent(analysis?.confidence);
   const selectedShowcase = [
@@ -410,31 +718,90 @@ function App() {
   const videoFrameAnalysis =
     analysis?.frame_analysis ?? analysis?.frameAnalysis ?? analysis?.frames ?? [];
 
+  // Dropdown state for nav
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   return (
     <div className="app-shell">
       <header className="topbar shell">
-        <a className="brand" href="#home" aria-label="Deepfake Detection">
-          <span className="brand-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="10" cy="10" r="6.25" />
-              <path d="M15 15l5 5" />
-            </svg>
-          </span>
+        <a className="brand" href="#home" aria-label="Reality Shield: AI Generated Content Detector">
           <span>
-            <strong>Deepfake Detection</strong>
+            <strong>Reality Shield</strong>
+            <small>AI Generated Content Detector</small>
           </span>
         </a>
 
+
         <nav className="nav-links" aria-label="Primary">
-          <a className="active" href="#home">
+          <a className={activePage === "home" ? "active" : ""} href="#home">
             Home
           </a>
-          <a href="#tools">
-            Deepfake Detection Tools <span className="chev">⌄</span>
-          </a>
-          <a href="#about">About</a>
-          <a href="#credits">Credits</a>
+          <div className="dropdown-nav" style={{ position: 'relative', display: 'inline-block' }}>
+            <button
+              className={activePage === "tools" ? "active dropdown-toggle" : "dropdown-toggle"}
+              style={{ background: 'none', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
+              onClick={() => setDropdownOpen((open) => !open)}
+              onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
+              aria-haspopup="true"
+              aria-expanded={dropdownOpen ? 'true' : 'false'}
+            >
+              Deepfake Detection Tools <span className="chev">⌄</span>
+            </button>
+            {dropdownOpen && (
+              <div
+                className="dropdown-menu"
+                style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  background: '#fff',
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.10)',
+                  borderRadius: '10px',
+                  minWidth: '240px',
+                  zIndex: 1000,
+                  marginTop: '8px',
+                  padding: '8px 0',
+                }}
+              >
+                {mediaOptions.map((option) => (
+                  <button
+                    key={option.id}
+                    className="dropdown-item"
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      background: 'none',
+                      border: 'none',
+                      textAlign: 'left',
+                      padding: '14px 24px',
+                      fontSize: '1.1rem',
+                      color: '#333',
+                      cursor: 'pointer',
+                      transition: 'background 0.2s',
+                    }}
+                    onClick={() => {
+                      setActivePage('tools');
+                      setActiveMedia(option.id);
+                      setFile(null);
+                      setAnalysis(null);
+                      setToolOpen(false);
+                      setError("");
+                      window.location.hash = '#tools';
+                      setDropdownOpen(false);
+                    }}
+                    onMouseDown={e => e.preventDefault()}
+                  >
+                    {`Deepfake ${option.title} Detection`}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          <a className={activePage === "about" ? "active" : ""} href="#about">About</a>
+          <a className={activePage === "insights" ? "active" : ""} href="#insights">Insights</a>
+          <a className={activePage === "faq" ? "active" : ""} href="#faq">FAQ</a>
         </nav>
+
 
         <a className="nav-cta" href="#tools">
           <span className="user-icon" aria-hidden="true">
@@ -448,30 +815,19 @@ function App() {
       </header>
 
       <main className="shell page">
-        <section className="hero" id="home">
+        <section className={`hero page-view ${activePage === "home" ? "active" : ""}`} id="home">
           <div className="hero-copy">
-            <span className="eyebrow">Deepfake Detection Tools</span>
-            <h1>AI Deepfake Detection Online Free</h1>
+            <span className="eyebrow">Reality Shield Tools</span>
+            <h1>AI Generated Content Detector Online Free</h1>
             <p className="hero-lead">
-              Use our AI deepfake detection tool to quickly check if an image, video, or voice is
+              Use Reality Shield to quickly check if an image, video, or voice is
               real or fake. You&apos;ll get fast results, clear reports, and a polished workflow
               that still talks to your backend.
             </p>
 
-            <div className="social-proof">
-              <div className="avatar-row" aria-label="User reviews">
-                <span />
-                <span />
-                <span />
-                <span />
-              </div>
-              <div className="stars">★★★★★</div>
-              <p>50,000+ deepfakes detected successfully</p>
-            </div>
-
             <div className="hero-actions">
               <a className="primary-button" href="#tools">
-                Try Deepfake Detection
+                Try Reality Shield
                 <span aria-hidden="true">→</span>
               </a>
             </div>
@@ -495,12 +851,26 @@ function App() {
           </div>
         </section>
 
-        <section className="section centered">
-          <span className="eyebrow">Different Deepfake Detection Online</span>
-          <h2>Different Deepfake Detection Online</h2>
+        <section
+          className={`section scan-stats-section page-view ${activePage === "home" ? "active" : ""}`}
+          aria-label="Scan summary"
+        >
+          <div className="scan-stats">
+            {scanStats.map((stat) => (
+              <article key={stat.label} className="scan-stat-card">
+                <span>{stat.label}</span>
+                <strong>{stat.value}</strong>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className={`section centered page-view ${activePage === "home" ? "active" : ""}`}>
+          <span className="eyebrow">Different AI Content Checks Online</span>
+          <h2>Different AI Generated Content Detection Online</h2>
           <p className="section-lead">
             Whether it&apos;s for education, research, or just peace of mind, people love using
-            deepfake detection to stay safe and informed.
+            AI-generated content detection to stay safe and informed.
           </p>
 
           <div className="showcase-wrap">
@@ -531,10 +901,113 @@ function App() {
           </div>
         </section>
 
-        <section className="section how-grid" id="about">
+        <section
+          className={`section about-section page-view ${activePage === "about" ? "active" : ""}`}
+          id="about"
+        >
+          <div className="about-hero">
+            <div className="about-copy">
+              <span className="eyebrow">About Us</span>
+              <h2>Meet the team behind Reality Shield</h2>
+              <p className="about-intro">
+                Hi! We&apos;re a team of AI researchers and cybersecurity experts who couldn&apos;t
+                stop asking the same thing:
+              </p>
+              <blockquote>
+                How can we help people identify fake content in a world of AI-generated media?
+              </blockquote>
+            </div>
+
+            <div className="privacy-card">
+              <span className="eyebrow">Privacy First</span>
+              <h3>Your privacy is our priority.</h3>
+              <p>
+                We don&apos;t save your files or store your data. Everything is processed securely
+                and deleted immediately after analysis. What you check stays private.
+              </p>
+              <strong>Zero data retention policy</strong>
+            </div>
+          </div>
+
+          <div className="story-grid">
+            <article className="story-panel">
+              <span className="eyebrow">Our Story</span>
+              <h3>That&apos;s how Reality Shield was born.</h3>
+              <p>
+                We started this project because we believe everyone deserves to know what&apos;s real
+                and what&apos;s not. As AI technology advances, synthetic media is becoming increasingly
+                sophisticated and harder to detect with the naked eye.
+              </p>
+              <p>
+                So we built something different: a free, fast, and accessible tool that helps
+                anyone verify the authenticity of images, videos, and audio files.
+              </p>
+            </article>
+
+            <div className="example-grid">
+              {aboutExamples.map((item) => (
+                <article key={item.title} className="example-card">
+                  <img src={item.src} alt={item.title} />
+                  <span>{item.title}</span>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="about-feature-block">
+            <div>
+              <span className="eyebrow">What Makes Us Different</span>
+              <h3>We explain how we know something is fake.</h3>
+              <p>
+                We built an AI-powered tool that doesn&apos;t just detect fakes. It helps people
+                understand the signals behind the result.
+              </p>
+            </div>
+            <div className="difference-grid">
+              {differenceCards.map((item) => (
+                <article key={item.title} className="difference-card">
+                  <h4>{item.title}</h4>
+                  <p>{item.copy}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="mission-block">
+            <div className="mission-copy">
+              <span className="eyebrow">Our Mission</span>
+              <h3>We believe truth matters.</h3>
+              <p>
+                In an era of digital manipulation, our mission is to empower people with the tools
+                they need to distinguish real from fake, protecting individuals and society from
+                misinformation.
+              </p>
+            </div>
+            <div className="mission-grid">
+              {missionCards.map((item) => (
+                <article key={item.title} className="mission-card">
+                  <h4>{item.title}</h4>
+                  <p>{item.copy}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="truth-seekers">
+            <span className="eyebrow">For Truth Seekers Everywhere</span>
+            <h3>This is the tool we wish everyone had access to.</h3>
+            <p>
+              Whether you&apos;re verifying news, protecting your identity, or educating others about
+              digital literacy, our tool is here to help you navigate the age of AI-generated
+              content. Now, we&apos;re making it available to anyone who values truth.
+            </p>
+          </div>
+        </section>
+
+        <section className={`section how-grid page-view ${activePage === "home" ? "active" : ""}`}>
           <div className="how-copy">
-            <span className="eyebrow">How to Use Deepfake Detection</span>
-            <h2>How to Use Deepfake Detection</h2>
+            <span className="eyebrow">How to Use Reality Shield</span>
+            <h2>How to Use Reality Shield</h2>
             <p className="section-lead">
               It&apos;s super easy. Just follow these steps to check if an image, video, or voice
               is real or totally fake.
@@ -569,13 +1042,127 @@ function App() {
           </div>
         </section>
 
-        <section className="section cta-strip">
+        <section className={`section cta-strip page-view ${activePage === "home" ? "active" : ""}`}>
           <a className="primary-button large" href="#tools">
-            Try Deepfake Detection Now <span aria-hidden="true">→</span>
           </a>
         </section>
 
-        <section className="section" id="tools">
+        <section className={`section scenario-section page-view ${activePage === "home" ? "active" : ""}`}>
+          <div className="scenario-head centered">
+            <span className="eyebrow">Real-World Use</span>
+            <h2>Built for everyday verification</h2>
+            <p className="section-lead">
+              Practical stories help visitors understand where fast AI-content checks matter most:
+              classrooms, newsrooms, creator accounts, and family safety.
+            </p>
+          </div>
+
+          <div className="scenario-list">
+            {scenarioCards.map((item, index) => (
+              <article key={item.title} className="scenario-card">
+                <img src={item.src} alt={item.title} />
+                <div>
+                  <span className="eyebrow">Use Case {index + 1}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.copy}</p>
+                  <a className="text-link" href="#tools">
+                    Try Reality Shield
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className={`section trust-section page-view ${activePage === "home" ? "active" : ""}`}>
+          <div className="trust-copy">
+            <span className="eyebrow">Why People Trust It</span>
+            <h2>Clear checks without a technical maze</h2>
+            <p className="section-lead">
+              The experience is designed to feel approachable while still showing confidence,
+              model signals, scan history, and report details.
+            </p>
+          </div>
+
+          <div className="trust-grid">
+            {trustCards.map((item) => (
+              <article key={item.title} className="trust-card">
+                <h3>{item.title}</h3>
+                <p>{item.copy}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className={`section testimonial-section page-view ${activePage === "home" ? "active" : ""}`}>
+          <blockquote>
+            I used Reality Shield during a media literacy lesson, and the report made it easy
+            for students to understand why a suspicious image needed a second look.
+          </blockquote>
+          <div>
+            <strong>Emily Harper</strong>
+            <span>High School History Teacher</span>
+          </div>
+          <p>5.0 rating</p>
+        </section>
+
+        <section
+          className={`section insights-section page-view ${activePage === "insights" ? "active" : ""}`}
+          id="insights"
+        >
+          <div className="insights-head">
+            <span className="eyebrow">Insights</span>
+            <h2>Model and scan intelligence</h2>
+            <p className="section-lead">
+              Live dashboard data is paired with the training setup in train_models.py so the
+              system view is easier to read at a glance.
+            </p>
+          </div>
+
+          <div className="insights-grid">
+            <DonutChart title="Scan verdict split" label="Pie chart" data={verdictInsightData} />
+            <BarChart title="Scans by media type" label="Bar graph" data={mediaInsightData} />
+            <BarChart
+              title="train_models.py training setup"
+              label="Bar graph"
+              data={trainingModelCards}
+            />
+            <DonutChart
+              title="Synthetic feature mix"
+              label="Pie chart"
+              data={trainingFeatureMix}
+            />
+            <F1HeatMap rows={f1HeatMapRows} />
+          </div>
+        </section>
+
+        <section className={`section faq-section page-view ${activePage === "faq" ? "active" : ""}`} id="faq">
+          <div className="faq-head">
+            <span className="eyebrow">FAQ</span>
+            <h2>Frequently asked questions</h2>
+          </div>
+
+          <div className="faq-list">
+            {faqItems.map((item) => (
+              <details key={item.question} className="faq-item">
+                <summary>{item.question}</summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section className={`section final-cta page-view ${activePage === "home" ? "active" : ""}`}>
+          <h2>Free online AI-generated content detection at your fingertips</h2>
+          <p className="section-lead">
+            Check suspicious media quickly, review the result, and make better decisions before you
+            share or respond.
+          </p>
+          <a className="primary-button large" href="#tools">
+          </a>
+        </section>
+
+        <section className={`section page-view ${activePage === "tools" ? "active" : ""}`} id="tools">
           <div className="tool-shell">
             <div className="tool-head">
               <div>
@@ -788,16 +1375,26 @@ function App() {
           </div>
         </section>
 
-        <section className="section footer-links">
-          <div id="credits">
-            <span className="eyebrow">Credits</span>
-            <h2>Built to help people check media quickly and clearly.</h2>
-            <p className="section-lead">
-              This landing page keeps the reference style while staying connected to your backend
-              analysis flow.
+        <footer className="site-footer">
+          <div>
+            <a className="brand" href="#home" aria-label="Reality Shield: AI Generated Content Detector">
+              <span>
+                <strong>Reality Shield</strong>
+                <small>AI Generated Content Detector</small>
+              </span>
+            </a>
+            <p>
+              A free AI-powered tool for checking AI-generated or manipulated images, videos, and audio files.
             </p>
           </div>
-        </section>
+          <nav aria-label="Footer">
+            <a href="#tools">Image Detection</a>
+            <a href="#tools">Video Detection</a>
+            <a href="#tools">Voice Detection</a>
+            <a href="#about">About Us</a>
+          </nav>
+          <span>© 2026 Reality Shield. All rights reserved.</span>
+        </footer>
       </main>
 
       {error ? <div className="banner error">{error}</div> : null}
