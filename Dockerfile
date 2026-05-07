@@ -29,8 +29,8 @@ EXPOSE 8000
 COPY entrypoint.sh /app/
 RUN chmod +x /app/entrypoint.sh
 
-ENV DATABASE_URL=${**[]**}
-ENV SECRET_KEY=${**[]**}
+ENV DATABASE_URL=""
+ENV JWT_SECRET=""
 
 RUN /app/entrypoint.sh python manage.py migrate
 RUN /app/entrypoint.sh python manage.py collectstatic --noinput

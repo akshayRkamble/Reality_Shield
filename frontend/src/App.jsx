@@ -218,7 +218,7 @@ function App() {
         <nav className="topbar">
           <div>
             <span className="brand-kicker">React frontend</span>
-            <h1>Deepfake Detector Control Room</h1>
+            <h1>Reality Shield Control Room</h1>
           </div>
           <div className={`status-pill ${health.status === "ok" ? "online" : "offline"}`}>
             <span className="status-dot" />

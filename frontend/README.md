@@ -1,6 +1,6 @@
 # Frontend
 
-This folder contains a React + Vite frontend for the deepfake detection backend.
+This folder contains a React + Vite frontend for the Reality Shield AI generated content detector backend.
 
 ## Run
 
