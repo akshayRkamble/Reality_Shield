@@ -26,32 +26,33 @@ const mediaOptions = [
 
 const heroGallery = [
   {
-    src: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Male_and_female_deepfake.jpg",
-    label: "Fake",
-    title: "AI-generated face pair",
-  },
-  {
-    src: "https://upload.wikimedia.org/wikipedia/commons/a/a3/Deepfake.jpg",
-    label: "Fake",
-    title: "Manipulated media example",
+    src: "https://deepfakedetection.io/images/page/fake-true-home.webp",
+    label: "",
+    title: "Fake and true face comparison",
   },
 ];
 
 const showcaseCards = [
   {
-    src: "https://upload.wikimedia.org/wikipedia/commons/7/7a/AI-generated_deepfake_hoax_image_of_the_Hollywood_sign_during_the_2025_California_wildfires.jpg",
-    label: "Fake",
-    title: "AI-generated hoax image",
+    quote:
+      "Reality Shield helped our newsroom triage suspicious visuals before they reached the publishing desk.",
+    name: "Aarav Mehta",
+    role: "Digital News Editor",
+    rating: "5.0 rating",
   },
   {
-    src: "https://upload.wikimedia.org/wikipedia/commons/b/b7/DigiDoug_DeepFake_at_TED2019.jpg",
-    label: "Fake",
-    title: "Deepfake stage demo",
+    quote:
+      "The report is clear enough for students to discuss what made a clip look manipulated.",
+    name: "Emily Harper",
+    role: "Media Literacy Teacher",
+    rating: "5.0 rating",
   },
   {
-    src: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Deepfakeexemplo.webp",
-    label: "Fake",
-    title: "Deepfake comparison",
+    quote:
+      "We use it as a first-pass review when customers send profile photos or voice notes that feel off.",
+    name: "Priya Sharma",
+    role: "Trust and Safety Lead",
+    rating: "4.9 rating",
   },
 ];
 
@@ -841,7 +842,9 @@ function App() {
               {heroGallery.map((item) => (
                 <article key={item.title} className="gallery-card hero-card">
                   <img src={item.src} alt={item.title} />
-                  <span className={`result-badge ${item.label.toLowerCase()}`}>{item.label}</span>
+                  {item.label ? (
+                    <span className={`result-badge ${item.label.toLowerCase()}`}>{item.label}</span>
+                  ) : null}
                 </article>
               ))}
             </div>
@@ -884,9 +887,13 @@ function App() {
 
             <div className="showcase-grid">
               {selectedShowcase.map((item) => (
-                <article key={`${item.title}-${item.label}`} className="showcase-card">
-                  <img src={item.src} alt={item.title} />
-                  <span className={`result-badge ${item.label.toLowerCase()}`}>{item.label}</span>
+                <article key={`${item.name}-${item.role}`} className="showcase-card showcase-testimonial">
+                  <blockquote>{item.quote}</blockquote>
+                  <div>
+                    <strong>{item.name}</strong>
+                    <span>{item.role}</span>
+                  </div>
+                  <p>{item.rating}</p>
                 </article>
               ))}
             </div>
