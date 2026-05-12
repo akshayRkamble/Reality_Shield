@@ -32,30 +32,6 @@ const heroGallery = [
   },
 ];
 
-const showcaseCards = [
-  {
-    quote:
-      "Reality Shield helped our newsroom triage suspicious visuals before they reached the publishing desk.",
-    name: "Aarav Mehta",
-    role: "Digital News Editor",
-    rating: "5.0 rating",
-  },
-  {
-    quote:
-      "The report is clear enough for students to discuss what made a clip look manipulated.",
-    name: "Emily Harper",
-    role: "Media Literacy Teacher",
-    rating: "5.0 rating",
-  },
-  {
-    quote:
-      "We use it as a first-pass review when customers send profile photos or voice notes that feel off.",
-    name: "Priya Sharma",
-    role: "Trust and Safety Lead",
-    rating: "4.9 rating",
-  },
-];
-
 const steps = [
   {
     title: "Upload Your File",
@@ -548,7 +524,6 @@ function App() {
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [toolOpen, setToolOpen] = useState(false);
-  const [showcaseIndex, setShowcaseIndex] = useState(0);
   const [authToken, setAuthToken] = useState(() => localStorage.getItem("realityShieldToken") || "");
   const [authUser, setAuthUser] = useState(null);
   const [authOpen, setAuthOpen] = useState(false);
@@ -778,12 +753,6 @@ function App() {
   ];
   const verdictLabel = analysis?.verdict ? String(analysis.verdict).toUpperCase() : "WAITING";
   const confidence = formatPercent(analysis?.confidence);
-  const selectedShowcase = [
-    showcaseCards[showcaseIndex % showcaseCards.length],
-    showcaseCards[(showcaseIndex + 1) % showcaseCards.length],
-    showcaseCards[(showcaseIndex + 2) % showcaseCards.length],
-  ];
-
   const featureTiles = analysis?.audio_features
     ? audioFeatureCards
         .filter((item) => Object.prototype.hasOwnProperty.call(analysis.audio_features, item.key))
@@ -803,7 +772,8 @@ function App() {
 
   return (
     <div className="app-shell">
-      <header className="topbar shell">
+      <header className="topbar">
+        <div className="topbar-inner shell">
         <a className="brand" href="#home" aria-label="Reality Shield: AI Generated Content Detector">
           <span>
             <strong>Reality Shield</strong>
@@ -816,49 +786,31 @@ function App() {
           <a className={activePage === "home" ? "active" : ""} href="#home">
             Home
           </a>
-          <div className="dropdown-nav" style={{ position: 'relative', display: 'inline-block' }}>
+          <div className="dropdown-nav">
             <button
+              type="button"
               className={activePage === "tools" ? "active dropdown-toggle" : "dropdown-toggle"}
-              style={{ background: 'none', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
               onClick={() => setDropdownOpen((open) => !open)}
-              onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
+              onKeyDown={(event) => {
+                if (event.key === "Escape") {
+                  setDropdownOpen(false);
+                }
+              }}
               aria-haspopup="true"
               aria-expanded={dropdownOpen ? 'true' : 'false'}
             >
-              Deepfake Detection Tools <span className="chev">⌄</span>
+              Detection Tools <span className="chev">⌄</span>
             </button>
             {dropdownOpen && (
               <div
                 className="dropdown-menu"
-                style={{
-                  position: 'absolute',
-                  top: '100%',
-                  left: 0,
-                  background: '#fff',
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.10)',
-                  borderRadius: '10px',
-                  minWidth: '240px',
-                  zIndex: 1000,
-                  marginTop: '8px',
-                  padding: '8px 0',
-                }}
+                onMouseLeave={() => setDropdownOpen(false)}
               >
                 {mediaOptions.map((option) => (
                   <button
+                    type="button"
                     key={option.id}
                     className="dropdown-item"
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      background: 'none',
-                      border: 'none',
-                      textAlign: 'left',
-                      padding: '14px 24px',
-                      fontSize: '1.1rem',
-                      color: '#333',
-                      cursor: 'pointer',
-                      transition: 'background 0.2s',
-                    }}
                     onClick={() => {
                       setActivePage('tools');
                       setActiveMedia(option.id);
@@ -869,9 +821,8 @@ function App() {
                       window.location.hash = '#tools';
                       setDropdownOpen(false);
                     }}
-                    onMouseDown={e => e.preventDefault()}
                   >
-                    {`Deepfake ${option.title} Detection`}
+                    {`${option.title} Detection`}
                   </button>
                 ))}
               </div>
@@ -892,6 +843,7 @@ function App() {
           </span>
           {authUser ? `Logout ${authUser.name?.split(" ")[0] || "Account"}` : "Sign in"}
         </button>
+        </div>
       </header>
 
       {authOpen ? (
@@ -959,25 +911,16 @@ function App() {
         <section className={`hero page-view ${activePage === "home" ? "active" : ""}`} id="home">
           <div className="hero-copy">
             <span className="eyebrow">Reality Shield Tools</span>
-            <h1>AI Generated Content Detector Online Free</h1>
+            <h1> Reality Shield AI Generated Content Detector </h1>
             <p className="hero-lead">
               Use Reality Shield to quickly check if an image, video, or voice is
               real or fake. You&apos;ll get fast results, clear reports, and a polished workflow
               that still talks to your backend.
             </p>
 
-            <div className="hero-actions">
-              <a className="primary-button" href="#tools">
-                Try Reality Shield
-                <span aria-hidden="true">→</span>
-              </a>
-            </div>
           </div>
 
           <div className="hero-gallery">
-            <button className="gallery-arrow left" type="button" onClick={() => setShowcaseIndex((index) => (index + showcaseCards.length - 1) % showcaseCards.length)}>
-              ‹
-            </button>
             <div className="gallery-grid">
               {heroGallery.map((item) => (
                 <article key={item.title} className="gallery-card hero-card">
@@ -988,9 +931,6 @@ function App() {
                 </article>
               ))}
             </div>
-            <button className="gallery-arrow right" type="button" onClick={() => setShowcaseIndex((index) => (index + 1) % showcaseCards.length)}>
-              ›
-            </button>
           </div>
         </section>
 
@@ -1005,46 +945,6 @@ function App() {
                 <strong>{stat.value}</strong>
               </article>
             ))}
-          </div>
-        </section>
-
-        <section className={`section centered page-view ${activePage === "home" ? "active" : ""}`}>
-          <span className="eyebrow">Different AI Content Checks Online</span>
-          <h2>Different AI Generated Content Detection Online</h2>
-          <p className="section-lead">
-            Whether it&apos;s for education, research, or just peace of mind, people love using
-            AI-generated content detection to stay safe and informed.
-          </p>
-
-          <div className="showcase-wrap">
-            <button
-              className="gallery-arrow floating left"
-              type="button"
-              onClick={() => setShowcaseIndex((index) => (index + showcaseCards.length - 1) % showcaseCards.length)}
-            >
-              ‹
-            </button>
-
-            <div className="showcase-grid">
-              {selectedShowcase.map((item) => (
-                <article key={`${item.name}-${item.role}`} className="showcase-card showcase-testimonial">
-                  <blockquote>{item.quote}</blockquote>
-                  <div>
-                    <strong>{item.name}</strong>
-                    <span>{item.role}</span>
-                  </div>
-                  <p>{item.rating}</p>
-                </article>
-              ))}
-            </div>
-
-            <button
-              className="gallery-arrow floating right"
-              type="button"
-              onClick={() => setShowcaseIndex((index) => (index + 1) % showcaseCards.length)}
-            >
-              ›
-            </button>
           </div>
         </section>
 
@@ -1191,6 +1091,8 @@ function App() {
 
         <section className={`section cta-strip page-view ${activePage === "home" ? "active" : ""}`}>
           <a className="primary-button large" href="#tools">
+            Try Reality Shield
+            <span aria-hidden="true">→</span>
           </a>
         </section>
 
@@ -1239,18 +1141,6 @@ function App() {
               </article>
             ))}
           </div>
-        </section>
-
-        <section className={`section testimonial-section page-view ${activePage === "home" ? "active" : ""}`}>
-          <blockquote>
-            I used Reality Shield during a media literacy lesson, and the report made it easy
-            for students to understand why a suspicious image needed a second look.
-          </blockquote>
-          <div>
-            <strong>Emily Harper</strong>
-            <span>High School History Teacher</span>
-          </div>
-          <p>5.0 rating</p>
         </section>
 
         <section
@@ -1305,8 +1195,6 @@ function App() {
             Check suspicious media quickly, review the result, and make better decisions before you
             share or respond.
           </p>
-          <a className="primary-button large" href="#tools">
-          </a>
         </section>
 
         <section className={`section page-view ${activePage === "tools" ? "active" : ""}`} id="tools">
@@ -1550,3 +1438,4 @@ function App() {
 }
 
 export default App;
+
