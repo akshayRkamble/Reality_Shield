@@ -6,14 +6,14 @@ Build a deepfake detection app for Image, Audio, and Video using the Multimodel-
 ## Architecture
 - **Frontend**: React 18 + Recharts + react-dropzone + Lucide icons
 - **Backend**: FastAPI (Python 3.11) + OpenAI GPT-5.2 Vision via emergentintegrations
-- **Database**: MongoDB (scans collection)
+- **Storage**: In-memory scan history for the active backend session
 - **AI Engine**: GPT-5.2 Vision for image/video analysis, signal processing + GPT for audio
 
 ## Core Requirements
 - Upload and analyze images for deepfake artifacts (facial features, lighting, shadows, compression)
 - Upload and analyze audio for synthetic voice detection (MFCC, spectral, ZCR, pitch analysis)
 - Upload and analyze video via frame extraction + multi-frame AI analysis
-- Store all scan results in MongoDB with full detail
+- Keep recent scan results in memory for the active backend session
 - Display scan history with filtering
 - Analytics dashboard with verdict distribution and media type breakdown
 
@@ -27,7 +27,7 @@ Build a deepfake detection app for Image, Audio, and Video using the Multimodel-
 - FastAPI backend with 6 endpoints (health, analyze/image, analyze/audio, analyze/video, scans, analytics)
 - GPT-5.2 Vision integration for image and video deepfake detection
 - Audio signal feature extraction (librosa) + AI interpretation
-- MongoDB storage for all scan results
+- In-memory scan history for recent results
 - Scan history page with detail view
 - Analytics dashboard with Recharts (pie + bar charts)
 - All tests passing (100% frontend, 100% backend)
@@ -35,7 +35,6 @@ Build a deepfake detection app for Image, Audio, and Video using the Multimodel-
 ## Backlog
 - P1: Batch upload / multi-file analysis
 - P1: Export analysis report as PDF
-- P2: User authentication and per-user scan history
 - P2: Real-time video stream analysis
 - P3: Comparison mode (side-by-side real vs fake)
 - P3: API rate limiting and usage tracking

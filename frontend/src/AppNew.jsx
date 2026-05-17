@@ -524,13 +524,6 @@ function App() {
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [toolOpen, setToolOpen] = useState(false);
-  const [authToken, setAuthToken] = useState(() => localStorage.getItem("realityShieldToken") || "");
-  const [authUser, setAuthUser] = useState(null);
-  const [authOpen, setAuthOpen] = useState(false);
-  const [authMode, setAuthMode] = useState("login");
-  const [authForm, setAuthForm] = useState({ name: "", email: "", password: "" });
-  const [authError, setAuthError] = useState("");
-  const [isAuthLoading, setIsAuthLoading] = useState(false);
 
   const currentMedia = useMemo(
     () => mediaOptions.find((option) => option.id === activeMedia) ?? mediaOptions[0],
@@ -541,23 +534,7 @@ function App() {
 
   useEffect(() => {
     loadDashboard();
-  }, [authToken]);
-
-  useEffect(() => {
-    if (!authToken) {
-      setAuthUser(null);
-      return;
-    }
-
-    fetch("/api/me", { headers: authHeaders(authToken) })
-      .then((response) => (response.ok ? response.json() : Promise.reject(new Error("Session expired."))))
-      .then((payload) => setAuthUser(payload.user || null))
-      .catch(() => {
-        localStorage.removeItem("realityShieldToken");
-        setAuthToken("");
-        setAuthUser(null);
-      });
-  }, [authToken]);
+  }, []);
 
   useEffect(() => {
     const pageFromHash = () => {
@@ -597,61 +574,6 @@ function App() {
     return timer;
   }
 
-  function authHeaders(token = authToken) {
-    return token ? { Authorization: `Bearer ${token}` } : {};
-  }
-
-  function handleAuthInput(event) {
-    const { name, value } = event.target;
-    setAuthForm((current) => ({ ...current, [name]: value }));
-  }
-
-  function openAuth(mode = "login") {
-    setAuthMode(mode);
-    setAuthError("");
-    setAuthOpen(true);
-  }
-
-  function logout() {
-    localStorage.removeItem("realityShieldToken");
-    setAuthToken("");
-    setAuthUser(null);
-    setScanHistory([]);
-    setAnalysis(null);
-  }
-
-  async function submitAuth(event) {
-    event.preventDefault();
-    setIsAuthLoading(true);
-    setAuthError("");
-
-    try {
-      const payload =
-        authMode === "register"
-          ? authForm
-          : { email: authForm.email, password: authForm.password };
-      const response = await fetch(`/api/auth/${authMode}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        throw new Error(data.detail || "Authentication failed.");
-      }
-
-      localStorage.setItem("realityShieldToken", data.token);
-      setAuthToken(data.token);
-      setAuthUser(data.user || null);
-      setAuthOpen(false);
-      setAuthForm({ name: "", email: "", password: "" });
-    } catch (authRequestError) {
-      setAuthError(authRequestError.message || "Authentication failed.");
-    } finally {
-      setIsAuthLoading(false);
-    }
-  }
-
   async function loadDashboard() {
     try {
       const healthResponse = await fetch("/api/health");
@@ -663,10 +585,10 @@ function App() {
         service: healthData?.service || "Reality Shield: AI Generated Content Detector",
       });
 
-      const analyticsResult = await fetch("/api/analytics", { headers: authHeaders() })
+      const analyticsResult = await fetch("/api/analytics")
         .then((response) => (response.ok ? response.json() : null))
         .catch(() => null);
-      const scansResult = await fetch("/api/scans?limit=8", { headers: authHeaders() })
+      const scansResult = await fetch("/api/scans?limit=8")
         .then((response) => (response.ok ? response.json() : null))
         .catch(() => null);
       setAnalytics(analyticsResult);
@@ -697,7 +619,6 @@ function App() {
 
       const response = await fetch(targetMedia.endpoint, {
         method: "POST",
-        headers: authHeaders(),
         body: formData,
       });
 
@@ -833,79 +754,8 @@ function App() {
           <a className={activePage === "faq" ? "active" : ""} href="#faq">FAQ</a>
         </nav>
 
-
-        <button className="nav-cta" type="button" onClick={() => (authUser ? logout() : openAuth("login"))}>
-          <span className="user-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="8" r="3.5" />
-              <path d="M4.5 20c1.5-4 4.25-6 7.5-6s6 2 7.5 6" />
-            </svg>
-          </span>
-          {authUser ? `Logout ${authUser.name?.split(" ")[0] || "Account"}` : "Sign in"}
-        </button>
         </div>
       </header>
-
-      {authOpen ? (
-        <div className="auth-backdrop" role="presentation" onMouseDown={() => setAuthOpen(false)}>
-          <section
-            className="auth-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="auth-title"
-            onMouseDown={(event) => event.stopPropagation()}
-          >
-            <div className="auth-head">
-              <div>
-                <span className="eyebrow">Account</span>
-                <h2 id="auth-title">{authMode === "register" ? "Create profile" : "Sign in"}</h2>
-              </div>
-              <button className="icon-button" type="button" onClick={() => setAuthOpen(false)} aria-label="Close">
-                x
-              </button>
-            </div>
-
-            <form className="auth-form" onSubmit={submitAuth}>
-              {authMode === "register" ? (
-                <label>
-                  Name
-                  <input name="name" value={authForm.name} onChange={handleAuthInput} minLength="2" required />
-                </label>
-              ) : null}
-              <label>
-                Email
-                <input name="email" type="email" value={authForm.email} onChange={handleAuthInput} required />
-              </label>
-              <label>
-                Password
-                <input
-                  name="password"
-                  type="password"
-                  value={authForm.password}
-                  onChange={handleAuthInput}
-                  minLength="8"
-                  required
-                />
-              </label>
-              {authError ? <p className="auth-error">{authError}</p> : null}
-              <button className="primary-button" type="submit" disabled={isAuthLoading}>
-                {isAuthLoading ? "Please wait..." : authMode === "register" ? "Create account" : "Sign in"}
-              </button>
-            </form>
-
-            <button
-              className="text-button"
-              type="button"
-              onClick={() => {
-                setAuthMode((mode) => (mode === "register" ? "login" : "register"));
-                setAuthError("");
-              }}
-            >
-              {authMode === "register" ? "Already have an account? Sign in" : "New here? Create an account"}
-            </button>
-          </section>
-        </div>
-      ) : null}
 
       <main className="shell page">
         <section className={`hero page-view ${activePage === "home" ? "active" : ""}`} id="home">

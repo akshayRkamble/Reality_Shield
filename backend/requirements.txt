@@ -76,7 +76,6 @@ openai==1.99.9
 opencv-python-headless==4.13.0.92
 packaging==26.0
 pandas==3.0.1
-passlib==1.7.4
 pathspec==1.0.4
 pillow==12.1.1
 platformdirs==4.9.4
@@ -93,13 +92,10 @@ pydantic==2.12.5
 pydantic_core==2.41.5
 pyflakes==3.4.0
 Pygments==2.19.2
-PyJWT==2.12.1
-psycopg[binary]==3.2.3
 pyparsing==3.3.2
 pytest==9.0.2
 python-dateutil==2.9.0.post0
 python-dotenv==1.2.2
-python-jose==3.5.0
 python-multipart==0.0.22
 pytokens==0.4.1
 PyYAML==6.0.3

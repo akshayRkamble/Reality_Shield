@@ -29,12 +29,6 @@ EXPOSE 8000
 COPY entrypoint.sh /app/
 RUN chmod +x /app/entrypoint.sh
 
-ENV DATABASE_URL=""
-ENV JWT_SECRET=""
-
-RUN /app/entrypoint.sh python manage.py migrate
-RUN /app/entrypoint.sh python manage.py collectstatic --noinput
-
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl -f http://localhost:8000/health || exit 1
 
 RUN apt-get purge -y --auto-remove build-essential libssl-dev libffi-dev python3-dev curl && \

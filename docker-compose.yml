@@ -10,14 +10,10 @@ services:
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
       - LOG_LEVEL=INFO
-      - DATABASE_URL=postgresql://deepfake:deepfake_password@db:5432/deepfake_detector
-      - JWT_SECRET=change-this-secret-in-production
     volumes:
       - .:/app
     ports:
       - "8000:8000"
-    depends_on:
-      - db
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
       interval: 30s
@@ -26,23 +22,8 @@ services:
     entrypoint: ["/app/entrypoint.sh"]
     command: ["python", "src/main.py"]
 
-  db:
-    image: postgres:13
-    container_name: multidisciplinary_deepfake_detection_db
-    environment:
-      - POSTGRES_DB=deepfake_detector
-      - POSTGRES_USER=deepfake
-      - POSTGRES_PASSWORD=deepfake_password
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-
   redis:
     image: "redis:6.2"
     container_name: multidisciplinary_deepfake_detection_redis
     ports:
       - "6379:6379"
-
-volumes:
-  postgres_data:

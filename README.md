@@ -1,6 +1,6 @@
 # Reality Shield
 
-Reality Shield is a FastAPI + React application for checking image, video, and audio content. The backend exposes analysis, health, auth, analytics, and scan-history APIs. The frontend is a Vite React app.
+Reality Shield is a FastAPI + React application for checking image, video, and audio content. The backend exposes analysis, health, analytics, and in-memory scan-history APIs. The frontend is a Vite React app.
 
 ## Prerequisites
 
@@ -9,7 +9,6 @@ Install these before running the project on a new machine:
 - Git
 - Python 3.10 or newer
 - Node.js 18 or newer with npm
-- Optional: PostgreSQL, only if you want persistent user and scan storage
 
 ## Run From Scratch
 
@@ -47,11 +46,9 @@ pip install -r backend/requirements.txt
 
 ### 4. Optional: create a `.env` file
 
-The app can run without PostgreSQL, but user accounts and scan history may not persist after restart. For persistent storage, create `.env` in the project root:
+Create `.env` in the project root only if you need to configure the optional LLM key:
 
 ```env
-DATABASE_URL=postgresql://username:password@localhost:5432/reality_shield
-JWT_SECRET=replace-with-a-long-random-secret
 EMERGENT_LLM_KEY=your_api_key_here
 ```
 
@@ -100,18 +97,8 @@ http://localhost:5173
 - Start the backend before the frontend so `frontend/.env.local` is created with the correct backend URL.
 - If the backend port changes, stop and restart the frontend.
 - The frontend proxies `/api/*` requests to the backend.
+- Scan history is kept in memory and resets when the backend restarts.
 - Uploaded files and generated local data should not be committed unless intentionally needed.
-
-## Optional PostgreSQL + Drizzle
-
-The backend can use PostgreSQL when `DATABASE_URL` is configured. The schema lives in `database/schema.ts`, with the initial SQL migration in `drizzle/0000_initial.sql`.
-
-Install root Node dependencies and push the schema:
-
-```powershell
-npm install
-npm run db:push
-```
 
 ## Build Frontend For Production
 
@@ -124,7 +111,6 @@ The production files are generated in `frontend/dist`.
 
 ## Troubleshooting
 
-- If account creation or login fails, confirm both backend and frontend terminals are running.
 - If the frontend cannot reach the API, check `frontend/.env.local` and restart the frontend.
 - If `pip install` fails, make sure your Python version is supported and your virtual environment is active.
 - If `npm install` fails, delete `frontend/node_modules` and run `npm install` again.
