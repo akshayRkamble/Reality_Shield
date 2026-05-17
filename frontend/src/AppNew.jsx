@@ -1,5 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 
+const API_BASE_URL = (import.meta.env.VITE_BACKEND_URL || "").replace(/\/$/, "");
+
+function apiUrl(path) {
+  return `${API_BASE_URL}${path}`;
+}
+
 const mediaOptions = [
   {
     id: "image",
@@ -576,7 +582,7 @@ function App() {
 
   async function loadDashboard() {
     try {
-      const healthResponse = await fetch("/api/health");
+      const healthResponse = await fetch(apiUrl("/api/health"));
       const healthData = healthResponse.ok ? await healthResponse.json() : null;
       const normalizedStatus = String(healthData?.status || "").toLowerCase();
 
@@ -585,10 +591,10 @@ function App() {
         service: healthData?.service || "Reality Shield: AI Generated Content Detector",
       });
 
-      const analyticsResult = await fetch("/api/analytics")
+      const analyticsResult = await fetch(apiUrl("/api/analytics"))
         .then((response) => (response.ok ? response.json() : null))
         .catch(() => null);
-      const scansResult = await fetch("/api/scans?limit=8")
+      const scansResult = await fetch(apiUrl("/api/scans?limit=8"))
         .then((response) => (response.ok ? response.json() : null))
         .catch(() => null);
       setAnalytics(analyticsResult);
@@ -617,7 +623,7 @@ function App() {
       const formData = new FormData();
       formData.append("file", preparedFile);
 
-      const response = await fetch(targetMedia.endpoint, {
+      const response = await fetch(apiUrl(targetMedia.endpoint), {
         method: "POST",
         body: formData,
       });

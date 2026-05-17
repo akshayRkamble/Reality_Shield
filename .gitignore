@@ -171,6 +171,7 @@ data/external/
 *.tsv
 *.parquet
 *.json
+!vercel.json
 *.xlsx
 
 *.png
